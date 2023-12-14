@@ -20,4 +20,11 @@ Route::get('/', function () {
 
 //candidats
 Route::get('/candidats/list', [CandidatController::class, 'index']);
+
 Route::get('/candidats/create', [CandidatController::class, 'create']);
+Route::post('/candidats/create/processing', [CandidatController::class, 'create_candidate']);
+
+Route::get('/candidats/read/{id}', [CandidatController::class, 'read']);
+
+Route::get('/candidats/update/{id}', [CandidatController::class, 'update']);
+Route::post('/candidats/update/processing', [CandidatController::class, 'update_candidate']);

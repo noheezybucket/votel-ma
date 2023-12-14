@@ -1,11 +1,11 @@
 @extends('base')
 
-@section('title', 'Ajouter un candidats')
+@section('title', 'Modifier un candidat')
 
 @section('content')
 
     <div class=" my-3 d-flex align-items-center justify-content-between gap-3 w-50 mx-auto">
-        <h2>Nouveau candidat</h2>
+        <h2>Modifier candidat</h2>
         <a class="btn btn-danger" href="{{ url('candidats/list') }}">Annuler</a>
     </div>
 
@@ -22,23 +22,24 @@
         @endforeach
     </ul>
 
-    <form action="/candidats/create/processing" method="POST" class="w-50 mx-auto row ">
+    <form action="/candidats/update/processing" method="POST" class="w-50 mx-auto row ">
         @csrf
+        <input type="hidden" name="id" value="{{ $candidat->id }}">
         <div class="form-group col-md-6">
             <label for="nom" class="form-label">Nom</label>
-            <input type="text" id="nom" name="nom" class="form-control">
+            <input type="text" id="nom" name="nom" class="form-control" value="{{ $candidat->nom }}">
         </div>
         <div class="form-group col-md-6">
             <label for="prenom" class="form-label">Prénom</label>
-            <input type="text" id="prenom" name="prenom" class="form-control">
+            <input type="text" id="prenom" name="prenom" class="form-control" value="{{ $candidat->prenom }}">
         </div>
         <div class="form-group mt-2">
             <label for="partie" class="form-label">Partie</label>
-            <input type="text" id="partie" name="partie" class="form-control">
+            <input type="text" id="partie" name="partie" class="form-control" value="{{ $candidat->partie }}">
         </div>
         <div class="form-group mt-2">
             <label for="biographie" class="form-label">Biographie</label>
-            <textarea type="text" id="biographie" name="biographie" class="form-control"></textarea>
+            <textarea type="text" id="biographie" name="biographie" class="form-control">{{ $candidat->biographie }}</textarea>
         </div>
         <input type="hidden" name="validate" value="{{ 1 }}">
         <div class="form-group mt-2">
@@ -46,7 +47,7 @@
             <input type="file" id="photo" class="form-control">
         </div>
         <div class="form-group">
-            <input type="submit" value="Créer le candidat" class="btn btn-primary w-100 mt-3">
+            <input type="submit" value="Sauvegarder les modifications" class="btn btn-primary w-100 mt-3">
         </div>
     </form>
 
