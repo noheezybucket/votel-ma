@@ -80,4 +80,19 @@ class CandidatController extends Controller
 
         return redirect('candidats/update/' . $request->id)->with('status', 'Candidat modifié avec succès!');
     }
+
+    function delete($id)
+    {
+        $candidat = Candidat::find($id);
+        return view('candidats/delete', ['candidat' => $candidat]);
+    }
+
+    function  delete_candidate(Request $request)
+    {
+        $candidat = Candidat::find($request->id);
+
+        $candidat->delete();
+
+        return redirect('candidats/list')->with('status', 'Candidat ' . $candidat->prenom . ' ' . $candidat->nom . ' supprimer avec succès!');
+    }
 }

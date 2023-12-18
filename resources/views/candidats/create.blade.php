@@ -6,7 +6,7 @@
 
     <div class=" my-3 d-flex align-items-center justify-content-between gap-3 w-50 mx-auto">
         <h2>Nouveau candidat</h2>
-        <a class="btn btn-danger" href="{{ url('candidats/list') }}">Annuler</a>
+        <a class="btn btn-danger" href="{{ url('candidats/list') }}">Retour</a>
     </div>
 
     @if (session('status'))
