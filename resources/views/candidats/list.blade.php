@@ -5,26 +5,27 @@
 @section('content')
 
 
-    {{-- <div class=" mt-3 d-flex align-items-center justify-content-between gap-3">
+    <div class=" mt-3 d-flex align-items-center justify-content-between gap-3">
         <h2>Candidats</h2>
         <a class=" btn btn-primary mb-2 align-items-center d-flex gap-1" style="width:fit-content;"
             href="{{ url('candidats/create') }}"><x-far-square-plus style="width:20px" /> Nouveau
             candidat</a>
-    </div> --}}
+    </div>
 
     @if (session('status'))
         <div class="class alert alert-danger alert-dismissible fade show" role="alert">
             {{ session('status') }}
         </div>
     @endif
+
+    <div id="toolbar">
+        your buttons here
+    </div>
     <div class="table-responsive">
 
         <table id=candidat-table class="table table-striped table-hover border caption-top" data-toggle='table'
-            data-pagination="true" data-search-align="left">
+            data-pagination="true" data-search-align="right" data-search="true" data-toolba="#toolbar">
 
-            <caption> <a class=" btn btn-primary mb-2 align-items-center d-flex gap-1" style="width:fit-content;"
-                    href="{{ url('candidats/create') }}"><x-far-square-plus style="width:20px" /> Nouveau
-                    candidat</a></caption>
             <thead align="left">
                 <th></th>
                 <th data-field="id" data-sortable="true">#</th>
@@ -84,5 +85,22 @@
         </table>
 
     </div>
+    <script>
+        function buttons() {
+            return {
+                btnAddCandidate: {
+                    text: 'Ajouter un candidat',
+                    icon: '',
+                    event: function() {
+                        alert('Do some stuff to e.g. search all users which has logged in the last week')
 
+                    },
+                    attributes: {
+                        title: 'Search all users which has logged in the last week'
+                    }
+                },
+
+            }
+        }
+    </script>
 @endsection
