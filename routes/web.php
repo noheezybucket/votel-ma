@@ -21,7 +21,8 @@ Route::get('/', function () {
 // candidates routes
 
 Route::prefix('candidate')->name('candidate.')->group(function () {
-    Route::view('list', 'candidate.list')->name('list');
+    Route::view('listview', 'candidate.list')->name('list');
+    Route::view('create', 'candidate.create')->name('create');
 });
 
 Route::post('/candidate/create/processing', [CandidatController::class, 'create_candidate'])->name('create_candidate_processing');

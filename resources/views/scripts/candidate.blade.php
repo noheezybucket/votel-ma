@@ -16,7 +16,7 @@
                     buttons: `
                     <div class="d-flex gap-2">
 
-                    <button type="button" class="btn btn-primary px-2 py-1" data-bs-toggle="modal" data-bs-target="#viewModal" ><x-far-eye style="width:20px" /></button>
+                    <button type="button" class="btn btn-primary px-2 py-1" data-bs-toggle="modal" data-bs-target="#view" data-bs-candidate='${JSON.stringify(elt)}'><x-far-eye style="width:20px" /></button>
 
                     <button type="button" class="btn btn-warning px-2 py-1" data-bs-toggle="modal" data-bs-target="#viewModal" ><x-far-pen-to-square style="width:20px" class='text-white'/></button>
                     
@@ -30,6 +30,8 @@
 
         // get candidates
         const getCandidates = () => {
+
+            $("#candidate-table").bootstrapTable('showLoading')
             $.ajax({
                 url: "{{ route('candidate.index') }}",
                 method: "GET",
@@ -37,6 +39,9 @@
                 // headers: {
                 //     Authorization: "Bearer " + token,
                 // }
+                success: function() {
+                    $("#candidate-table").bootstrapTable('hideLoading')
+                }
             }).then(response => {
                 let candidates = [];
 
@@ -50,8 +55,20 @@
 
             })
         }
-        getCandidates()
     </script>
 
-    <script></script>
+    <script>
+        getCandidates()
+        $("#view").on('shown.bs.modal', event => {
+            var button = event.relatedTarget
+            var candidate = JSON.parse(button.getAttribute('data-bs-candidate'))
+
+
+            $("#prenom").val(candidate.prenom)
+            $("#nom").val(candidate.nom)
+            $("#biographie").val(candidate.biographie)
+            $("#photo").attr('src', "/img/" + candidate.nom + '.jpg')
+
+        })
+    </script>
 @endsection
