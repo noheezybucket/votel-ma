@@ -9,12 +9,22 @@ class CandidatController extends Controller
 {
     function index()
     {
-        return view('candidats/list', ['candidats' => Candidat::all()]);
+        try {
+            return response()->json([
+                'status' => 'success',
+                'candidates' => Candidat::all()
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     function create()
     {
-        return view('candidats/create');
+        return view('candidate/create');
     }
 
     function create_candidate(Request $request)
@@ -39,20 +49,20 @@ class CandidatController extends Controller
 
         $candidat->save();
 
-        return redirect('candidats/create')->with('status', 'Candidat ajouté avec succès!');
+        return redirect('candidate/create')->with('status', 'Candidat ajouté avec succès!');
     }
 
     function read($id)
     {
         $candidat = Candidat::find($id);
-        return view('candidats/read', ['candidat' => $candidat]);
+        return view('candidate/read', ['candidat' => $candidat]);
     }
 
 
     function update($id)
     {
         $candidat = Candidat::find($id);
-        return view('candidats/update', ['candidat' => $candidat]);
+        return view('candidate/update', ['candidat' => $candidat]);
     }
 
     function update_candidate(Request $request)
@@ -78,13 +88,13 @@ class CandidatController extends Controller
 
         $candidat->update();
 
-        return redirect('candidats/update/' . $request->id)->with('status', 'Candidat modifié avec succès!');
+        return redirect('candidate/update/' . $request->id)->with('status', 'Candidat modifié avec succès!');
     }
 
     function delete($id)
     {
         $candidat = Candidat::find($id);
-        return view('candidats/delete', ['candidat' => $candidat]);
+        return view('candidate/delete', ['candidat' => $candidat]);
     }
 
     function  delete_candidate(Request $request)
@@ -93,6 +103,6 @@ class CandidatController extends Controller
 
         $candidat->delete();
 
-        return redirect('candidats/list')->with('status', 'Candidat ' . $candidat->prenom . ' ' . $candidat->nom . ' supprimer avec succès!');
+        return redirect('candidate/list')->with('status', 'Candidat ' . $candidat->prenom . ' ' . $candidat->nom . ' supprimer avec succès!');
     }
 }

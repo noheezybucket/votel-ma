@@ -18,16 +18,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//candidats
-Route::get('/candidats/list', [CandidatController::class, 'index'])->name('list_candidate');
+// candidates routes
 
-Route::get('/candidats/create', [CandidatController::class, 'create'])->name('create_candidate');
-Route::post('/candidats/create/processing', [CandidatController::class, 'create_candidate'])->name('create_candidate_processing');
+Route::prefix('candidate')->name('candidate.')->group(function () {
+    Route::view('list', 'candidate.list')->name('list');
+});
 
-Route::get('/candidats/read/{id}', [CandidatController::class, 'read'])->name('view_candidate');
+Route::post('/candidate/create/processing', [CandidatController::class, 'create_candidate'])->name('create_candidate_processing');
 
-Route::get('/candidats/update/{id}', [CandidatController::class, 'update'])->name('update_candidate');
-Route::post('/candidats/update/processing', [CandidatController::class, 'update_candidate'])->name('update_candidate_processing');
+Route::get('/candidate/read/{id}', [CandidatController::class, 'read'])->name('view_candidate');
 
-Route::get('/candidats/delete/{id}', [CandidatController::class, 'delete'])->name('delete_candidate');
-Route::post('/candidats/delete/processing', [CandidatController::class, 'delete_candidate'])->name('delete_candidate_processing');
+Route::get('/candidate/update/{id}', [CandidatController::class, 'update'])->name('update_candidate');
+Route::post('/candidate/update/processing', [CandidatController::class, 'update_candidate'])->name('update_candidate_processing');
+
+Route::get('/candidate/delete/{id}', [CandidatController::class, 'delete'])->name('delete_candidate');
+Route::post('/candidate/delete/processing', [CandidatController::class, 'delete_candidate'])->name('delete_candidate_processing');
