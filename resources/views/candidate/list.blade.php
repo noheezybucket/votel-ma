@@ -47,7 +47,7 @@
 
                         <div class="w-25">
                             <img src="" alt="" id="photo"
-                                style="max-height:100px max-width:100px; width:100%; height:100%; object-fit:cover"
+                                style="max-height:100px max-width:120px; width:100%; height:100%; object-fit:cover"
                                 class="rounded object-fit-cover">
                         </div>
                         <form class="w-100">
