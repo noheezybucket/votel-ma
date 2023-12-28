@@ -17,7 +17,7 @@
     {{-- Bootstrap Tables --}}
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.css">
     <title>@yield('title')</title>
-    {{-- 
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -26,7 +26,7 @@
         *::before {
             font-family: 'Poppins'
         }
-    </style> --}}
+    </style>
 
 
 </head>
@@ -42,7 +42,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active  text-white" aria-current="page" href="/candidats/list">Candidats</a>
+                        <a class="nav-link active  text-white" aria-current="page"
+                            href="{{ route('admin.list-candidate') }}">Candidats</a>
                     </li>
 
                     <li class="nav-item">

@@ -20,12 +20,11 @@ Route::get('/', function () {
 
 // candidates routes
 
-Route::prefix('candidate')->name('candidate.')->group(function () {
-    Route::view('listview', 'candidate.list')->name('list');
-    Route::view('create', 'candidate.create')->name('create');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::view('list-candidate', 'candidate.list')->name('list-candidate');
+    Route::view('create-candidate', 'candidate.create')->name('create-candidate');
 });
 
-Route::post('/candidate/create/processing', [CandidatController::class, 'create_candidate'])->name('create_candidate_processing');
 
 Route::get('/candidate/read/{id}', [CandidatController::class, 'read'])->name('view_candidate');
 

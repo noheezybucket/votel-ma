@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Candidat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Stmt\TryCatch;
 
 class CandidatController extends Controller
 {
@@ -22,34 +24,44 @@ class CandidatController extends Controller
         }
     }
 
-    function create()
+    function create(Request $request)
     {
-        return view('candidate/create');
-    }
+        try {
 
-    function create_candidate(Request $request)
-    {
-        $request->validate([
-            'nom' => 'required',
-            'prenom' => 'required',
-            'partie' => 'required',
-            'biographie' => 'required',
-            'validate' => 'required',
+            $validated = Validator::make($request->all(), [
+                'nom' => 'required',
+                'prenom' => 'required',
+                'partie' => 'required',
+                'biographie' => 'required',
+                'validate' => 'required',
+            ]);
 
-        ]);
 
-        $candidat = new Candidat();
+            if ($validated->fails()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $validated->errors()->first(),
+                ]);
+            }
 
-        $candidat->nom = $request->nom;
-        $candidat->prenom = $request->prenom;
-        $candidat->partie = $request->partie;
-        $candidat->biographie = $request->biographie;
-        $candidat->validate = $request->validate;
-        $candidat->photo = "mike";
+            $candidat = new Candidat();
 
-        $candidat->save();
+            $candidat->nom = $request->nom;
+            $candidat->prenom = $request->prenom;
+            $candidat->partie = $request->partie;
+            $candidat->biographie = $request->biographie;
+            $candidat->validate = $request->validate;
+            $candidat->photo = "mike";
 
-        return redirect('candidate/create')->with('status', 'Candidat ajouté avec succès!');
+            $candidat->save();
+
+            return redirect('admin/create-candidate')->with('status', 'Candidat ajouté avec succès!');
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     function read($id)

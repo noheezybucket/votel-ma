@@ -20,5 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('candidate')->name('candidate.')->group(function () {
-    Route::get('/list', [CandidatController::class, 'index'])->name('index');
+    Route::get('list', [CandidatController::class, 'index'])->name('list');
+    Route::post('/create', [CandidatController::class, 'create'])->name('create');
 });
