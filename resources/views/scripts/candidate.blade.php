@@ -104,7 +104,6 @@
                 'Mise à jour en cours <div class="spinner-border spinner-border-sm" role="status"></div>')
 
             let data = {
-                id: $("#update-id").val(),
                 nom: $("#update-nom").val(),
                 prenom: $("#update-prenom").val(),
                 partie: $("#update-partie").val(),
@@ -120,9 +119,9 @@
                 data: data
             }).then(response => {
                 if (response.status === 'success') {
-                    // getJobs()
                     console.log(response)
-                    $("#update").modal('hide')
+                    // getCandidates()
+                    // $("#update").modal('hide')
                 } else if (response.status === 'error') {
                     var url =
                         "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=fr&dt=t&q=" +

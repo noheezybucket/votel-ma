@@ -74,13 +74,14 @@ class CandidatController extends Controller
                 'biographie' => 'required',
             ]);
 
+
+
             if ($validated->fails()) {
                 return response()->json([
                     'status' => 'error',
                     'message' => $validated->errors()->first(),
                 ]);
             }
-
 
             $candidat->update($request->all());
 
@@ -103,9 +104,9 @@ class CandidatController extends Controller
         try {
             $candidat->delete();
             return response()->json([
-                'status' => 'succeess',
+                'status' => 'success',
                 'message' => 'Utilisateur supprimé avec succès',
-                'candidate' => $candidat
+                'candidat' => $candidat
             ]);
         } catch (\Throwable $e) {
             return response()->json([
@@ -113,7 +114,5 @@ class CandidatController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
-
-        return redirect('candidate/list')->with('status', 'Candidat ' . $candidat->prenom . ' ' . $candidat->nom . ' supprimer avec succès!');
     }
 }
