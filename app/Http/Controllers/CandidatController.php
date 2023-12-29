@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Candidat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use PhpParser\Node\Stmt\TryCatch;
 
 class CandidatController extends Controller
 {
@@ -51,7 +50,7 @@ class CandidatController extends Controller
             $candidat->partie = $request->partie;
             $candidat->biographie = $request->biographie;
             $candidat->validate = $request->validate;
-            $candidat->photo = "mike";
+            $candidat->photo = "default";
 
             $candidat->save();
 
@@ -64,56 +63,56 @@ class CandidatController extends Controller
         }
     }
 
-    function read($id)
+
+    function update(Request $request, Candidat $candidat)
     {
-        $candidat = Candidat::find($id);
-        return view('candidate/read', ['candidat' => $candidat]);
+        try {
+            $validated = Validator::make($request->all(), [
+                'nom' => 'required',
+                'prenom' => 'required',
+                'partie' => 'required',
+                'biographie' => 'required',
+            ]);
+
+            if ($validated->fails()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $validated->errors()->first(),
+                ]);
+            }
+
+
+            $candidat->update($request->all());
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Candidat modifié avec succès',
+                'candidat' => $candidat,
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
 
-    function update($id)
+    function  delete(Candidat $candidat)
     {
-        $candidat = Candidat::find($id);
-        return view('candidate/update', ['candidat' => $candidat]);
-    }
-
-    function update_candidate(Request $request)
-    {
-        $request->validate([
-            'id' => 'required',
-            'nom' => 'required',
-            'prenom' => 'required',
-            'partie' => 'required',
-            'biographie' => 'required',
-            'validate' => 'required',
-
-        ]);
-
-        $candidat = Candidat::find($request->id);
-
-        $candidat->nom = $request->nom;
-        $candidat->prenom = $request->prenom;
-        $candidat->partie = $request->partie;
-        $candidat->biographie = $request->biographie;
-        $candidat->validate = $request->validate;
-        $candidat->photo = $request->nom;
-
-        $candidat->update();
-
-        return redirect('candidate/update/' . $request->id)->with('status', 'Candidat modifié avec succès!');
-    }
-
-    function delete($id)
-    {
-        $candidat = Candidat::find($id);
-        return view('candidate/delete', ['candidat' => $candidat]);
-    }
-
-    function  delete_candidate(Request $request)
-    {
-        $candidat = Candidat::find($request->id);
-
-        $candidat->delete();
+        try {
+            $candidat->delete();
+            return response()->json([
+                'status' => 'succeess',
+                'message' => 'Utilisateur supprimé avec succès',
+                'candidate' => $candidat
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
 
         return redirect('candidate/list')->with('status', 'Candidat ' . $candidat->prenom . ' ' . $candidat->nom . ' supprimer avec succès!');
     }

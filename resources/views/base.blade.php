@@ -24,7 +24,11 @@
         *,
         *::after,
         *::before {
-            font-family: 'Poppins'
+            font-family: 'Poppins';
+        }
+
+        .nav-link:active {
+            color: red;
         }
     </style>
 
@@ -32,9 +36,10 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg  bg-primary  py-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top  py-3">
         <div class="container-fluid">
-            <a class="navbar-brand text-xl  rounded p-2 bg-light text-primary fw-bold" href="/">ParrainApp</a>
+            <a class="navbar-brand text-xl  rounded p-2 bg-light text-primary fw-bold"
+                href="/"><span>ParrainApp</span><x-far-envelope style="width: 30px; margin-left:5px" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -42,16 +47,20 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active  text-white" aria-current="page"
+                        <a class="nav-link active" aria-current="page"
+                            href="{{ route('admin.list-candidate') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"
                             href="{{ route('admin.list-candidate') }}">Candidats</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active  text-white" aria-current="page" href="apprenants">Programmes</a>
+                        <a class="nav-link active" aria-current="page" href="apprenants">Programmes</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active  text-white" aria-current="page" href="formations">Secteurs</a>
+                        <a class="nav-link active" aria-current="page" href="formations">Secteurs</a>
                     </li>
 
                 </ul>

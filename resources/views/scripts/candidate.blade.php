@@ -7,20 +7,22 @@
                     id: elt.id,
                     nom: elt.nom,
                     prenom: elt.prenom,
-                    photo: elt.photo != 'mike' ? '<img src="/img/' + elt.photo +
+                    photo: elt.partie != 'zzzz' ? '<img src="/img/' + elt.photo +
                         '.jpg" alt="" width="80px" class="rounded">' :
                         // '<img src="/img/default.png" alt="" width="150px" class="rounded">',
                         '<div class="bg-primary rounded text-white py-4 d-flex justify-content-center"><x-far-image style="width:50px"/></div>',
                     biographie: elt.biographie.substring(0, 150) + '...',
                     partie: elt.partie,
+                    valider: elt.validate,
+
                     buttons: `
                     <div class="d-flex gap-2">
 
                     <button type="button" class="btn btn-primary px-2 py-1" data-bs-toggle="modal" data-bs-target="#view" data-bs-candidate='${JSON.stringify(elt)}'><x-far-eye style="width:20px" /></button>
 
-                    <button type="button" class="btn btn-warning px-2 py-1" data-bs-toggle="modal" data-bs-target="#viewModal" ><x-far-pen-to-square style="width:20px" class='text-white'/></button>
+                    <button type="button" class="btn btn-warning px-2 py-1" data-bs-toggle="modal" data-bs-target="#update" data-bs-candidate='${JSON.stringify(elt)}'><x-far-pen-to-square style="width:20px" class='text-white'/></button>
                     
-                    <button type="button" class="btn btn-danger px-2 py-1" data-bs-toggle="modal" data-bs-target="#viewModal" ><x-far-trash-can style="width:20px" /></button>
+                    <button type="button" class="btn btn-danger px-2 py-1" data-bs-toggle="modal" data-bs-target="#delete" data-bs-id='${JSON.stringify(elt.id)}' ><x-far-trash-can style="width:20px" /></button>
                     </div>
                     `
                 })
@@ -39,7 +41,7 @@
                 prenom: $("#prenom").val(),
                 partie: $("#partie").val(),
                 biographie: $("#biographie").val(),
-                validate: $('#validate').val()
+                valider: $('#valider').val()
             }
 
             $.ajax({
@@ -97,7 +99,79 @@
 
         // update candidate
         const updateCandidate = () => {
-            console.log("yes")
+            $('#update-candidate-btn').prop('disabled', true)
+            $('#update-candidate-btn').html(
+                'Mise à jour en cours <div class="spinner-border spinner-border-sm" role="status"></div>')
+
+            let data = {
+                id: $("#update-id").val(),
+                nom: $("#update-nom").val(),
+                prenom: $("#update-prenom").val(),
+                partie: $("#update-partie").val(),
+                biographie: $("#update-biographie").val(),
+            }
+
+            let candidate_id = $("#update-id").val();
+
+            $.ajax({
+                url: "http://127.0.0.1:8000/api/candidate/update/" + candidate_id,
+                method: 'PUT',
+                timeout: 5000,
+                data: data
+            }).then(response => {
+                if (response.status === 'success') {
+                    // getJobs()
+                    console.log(response)
+                    $("#update").modal('hide')
+                } else if (response.status === 'error') {
+                    var url =
+                        "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=fr&dt=t&q=" +
+                        encodeURI(response.message)
+                    $.getJSON(url, function(data) {
+                        $("#update-error").html(
+                            '<span  class="alert alert-danger d-block">' + data[0][0][0] + '</span>'
+                        )
+                    })
+                }
+                $('#update-candidate-btn').prop('disabled', false)
+                $('#update-candidate-btn').html('Sauvegarder')
+            }).catch(error => {
+                console.log(error)
+                $('#update-candidate-btn').prop('disabled', false)
+                $('#update-candidate-btn').html('Sauvegarder')
+            })
+
+        }
+
+        // delete candidate
+        const deleteCandidate = () => {
+            $('#delete-candidate-btn').prop('disabled', true)
+            $('#delete-candidate-btn').html(
+                'Suppression en cours <div class="spinner-border spinner-border-sm" role="status"></div>')
+
+            let candidate_id = $("#delete-id").val()
+            $.ajax({
+                url: "http://127.0.0.1:8000/api/candidate/delete/" + candidate_id,
+                method: 'DELETE',
+                timeout: 5000
+            }).then(response => {
+                console.log(response)
+                $('#delete-candidate-btn').prop('disabled', false)
+                $('#delete-candidate-btn').html(
+                    'Oui'
+                )
+                $("#delete").modal('hide')
+                getCandidates()
+
+
+            }).catch(error => {
+                console.log(error)
+                $('#delete-candidate-btn').prop('disabled', false)
+                $('#delete-candidate-btn').html(
+                    'Oui'
+                )
+
+            })
         }
     </script>
 
@@ -111,16 +185,51 @@
                 $("#prenom").val(candidate.prenom)
                 $("#nom").val(candidate.nom)
                 $("#biographie").val(candidate.biographie)
-                if (candidate.nom != 'mike') {
+                $("#partie").val(candidate.partie)
+                $("#valider").val(candidate.validate)
+
+                if (candidate.partie === 'zzzz') {
                     $("#photo").attr('src', "/img/default.png")
 
                 } else {
-                    $("#photo").attr('src', "/img/" + candidate.nom + '.jpg')
+                    $("#photo").attr('src', "/img/" + candidate.nom + ".jpg")
 
                 }
+            })
+
+            // update
+            $("#update").on('shown.bs.modal', event => {
+                var button = event.relatedTarget
+                var candidate = JSON.parse(button.getAttribute('data-bs-candidate'))
+
+                $("#update-id").val(candidate.id)
+                $("#update-prenom").val(candidate.prenom)
+                $("#update-nom").val(candidate.nom)
+                $("#update-biographie").val(candidate.biographie)
+                $("#update-partie").val(candidate.partie)
+
+                if (candidate.partie === 'zzzz') {
+                    $("#update-photo").attr('src', "/img/default.png")
+
+                } else {
+                    $("#update-photo").attr('src', "/img/" + candidate.nom + ".jpg")
+                }
+            })
+
+            // delete
+            $("#delete").on('shown.bs.modal', event => {
+                var button = event.relatedTarget
+                var del_id = JSON.parse(button.getAttribute('data-bs-id'))
+
+                $("#delete-id").val(del_id)
 
             })
+
+            $("#update-candidate-btn").click(updateCandidate)
+            $("#delete-candidate-btn").click(deleteCandidate)
         }
+
+        // create
         if (window.location.href === "{{ route('admin.create-candidate') }}") {
             $('#create-candidate-btn').click(createCandidate)
         }

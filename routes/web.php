@@ -25,11 +25,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::view('create-candidate', 'candidate.create')->name('create-candidate');
 });
 
-
-Route::get('/candidate/read/{id}', [CandidatController::class, 'read'])->name('view_candidate');
-
-Route::get('/candidate/update/{id}', [CandidatController::class, 'update'])->name('update_candidate');
-Route::post('/candidate/update/processing', [CandidatController::class, 'update_candidate'])->name('update_candidate_processing');
-
 Route::get('/candidate/delete/{id}', [CandidatController::class, 'delete'])->name('delete_candidate');
 Route::post('/candidate/delete/processing', [CandidatController::class, 'delete_candidate'])->name('delete_candidate_processing');

@@ -21,5 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('candidate')->name('candidate.')->group(function () {
     Route::get('list', [CandidatController::class, 'index'])->name('list');
-    Route::post('/create', [CandidatController::class, 'create'])->name('create');
+    Route::post('create', [CandidatController::class, 'create'])->name('create');
+    Route::put('update/{id}', [CandidatController::class, 'update'])->name('update');
+    Route::delete('delete/{id}', [CandidatController::class, 'delete'])->name('delete');
 });
