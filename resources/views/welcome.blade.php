@@ -7,8 +7,8 @@
         <p>L'app qui vous permet de parrainez votre candidat en quelques clics !</p>
 
         <div class="mb-2">
-            <a class=" btn btn-primary" href="{{ url('candidats/list') }}">Se connecter</a>
-            <a class=" btn btn-primary" href="{{ url('formations') }}">S'inscrire</a>
+            <a class=" btn btn-primary" href="{{ route('auth.login') }}">Se connecter</a>
+            <a class=" btn btn-primary" href="{{ route('auth.register') }}">S'inscrire</a>
         </div>
     </main>
 

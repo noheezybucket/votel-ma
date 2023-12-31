@@ -1,8 +1,7 @@
 @extends('auth-base')
 
-
 @section('auth-img')
-    <img src="{{ asset('img/login.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Vote">
+    <img src="{{ asset('img/register.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Vote">
 @endsection
 
 @section('auth-form')
@@ -11,7 +10,7 @@
             <x-far-envelope style="width: 50px; margin-right:5px" />
             <span class="fs-3">ParrainApp</span>
         </div>
-        <h3 class="my-3 text-center fs-6">Accédez facilement à votre compte </h3>
+        <h3 class="my-3 text-center fs-6">Inscrivez facilement en remplissant le formulaire </h3>
         @csrf
         <div class=" mb-2">
             <label for="email" class="form-label">Email</label>
@@ -31,8 +30,8 @@
         </div>
 
         <div>
-            <p class="mt-2">Vous n'avez pas de compte? <br>
-                <a href="{{ route('auth.register') }}">Inscrivez-vous facilement ici</a>
+            <p class="mt-2">Vous avez déjà un compte? <br>
+                <a href="{{ route('auth.login') }}">Connectez vous facilement ici</a>
             </p>
         </div>
     </form>
