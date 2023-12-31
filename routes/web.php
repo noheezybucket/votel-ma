@@ -18,6 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//candidats
-Route::get('/candidats/list', [CandidatController::class, 'index']);
-Route::get('/candidats/create', [CandidatController::class, 'create']);
+// candidates routes
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::view('list-candidate', 'candidate.list')->name('list-candidate');
+    Route::view('create-candidate', 'candidate.create')->name('create-candidate');
+});
+
+Route::prefix('auth')->name('auth.')->group(function () {
+    Route::view('login', 'auth.login')->name('login');
+});
