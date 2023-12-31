@@ -99,10 +99,10 @@
                                 style="max-height:100px max-width:120px; width:100%; height:100%; object-fit:cover"
                                 class="rounded object-fit-cover">
                         </div>
-                        <div id="update-error"></div>
                         <form class="w-100">
                             @csrf
                             @method('put')
+                            <div id="update-error"></div>
                             <input type="hidden" name="update-id" id="update-id">
                             <div class="mb-3">
                                 <label for="update-prenom" class="col-form-label">Prenom</label>
@@ -133,7 +133,7 @@
 
     {{-- Delete View --}}
     <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="deleteModalLabel">Etes vous sûr ?</h5>

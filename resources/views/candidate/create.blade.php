@@ -31,7 +31,7 @@
             <label for="biographie" class="form-label">Biographie</label>
             <textarea type="text" id="biographie" name="biographie" class="form-control"></textarea>
         </div>
-        <input type="hidden" name="validate" id='validate' name="validate" value="{{ 1 }}">
+        <input type="hidden" name="validate" id='validate' name="validate" value="{{ 0 }}">
         <div class="form-group mt-2">
             <label for="photo" class="form-label">Photo</label>
             <input type="file" id="photo" class="form-control">

@@ -32,7 +32,6 @@ class CandidatController extends Controller
                 'prenom' => 'required',
                 'partie' => 'required',
                 'biographie' => 'required',
-                'validate' => 'required',
             ]);
 
 
@@ -49,12 +48,15 @@ class CandidatController extends Controller
             $candidat->prenom = $request->prenom;
             $candidat->partie = $request->partie;
             $candidat->biographie = $request->biographie;
-            $candidat->validate = $request->validate;
+            $candidat->validate = 0;
             $candidat->photo = "default";
 
             $candidat->save();
 
-            return redirect('admin/create-candidate')->with('status', 'Candidat ajouté avec succès!');
+            return response()->json([
+                'status' => 'success',
+                'message' => "Candidat ajouté avec succès",
+            ], 200);
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => 'error',
@@ -64,7 +66,7 @@ class CandidatController extends Controller
     }
 
 
-    function update(Request $request, Candidat $candidat)
+    function update(Request $request, $id)
     {
         try {
             $validated = Validator::make($request->all(), [
@@ -83,6 +85,8 @@ class CandidatController extends Controller
                 ]);
             }
 
+            $candidat = Candidat::find($id);
+
             $candidat->update($request->all());
 
             return response()->json([
@@ -99,9 +103,10 @@ class CandidatController extends Controller
     }
 
 
-    function  delete(Candidat $candidat)
+    function  delete($id)
     {
         try {
+            $candidat = Candidat::find($id);
             $candidat->delete();
             return response()->json([
                 'status' => 'success',

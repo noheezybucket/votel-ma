@@ -25,5 +25,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::view('create-candidate', 'candidate.create')->name('create-candidate');
 });
 
-Route::get('/candidate/delete/{id}', [CandidatController::class, 'delete'])->name('delete_candidate');
-Route::post('/candidate/delete/processing', [CandidatController::class, 'delete_candidate'])->name('delete_candidate_processing');
+Route::prefix('auth')->name('auth.')->group(function () {
+    Route::view('login', 'auth.login')->name('login');
+});

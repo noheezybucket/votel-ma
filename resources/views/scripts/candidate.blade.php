@@ -54,7 +54,9 @@
                 if (response.status === 'success') {
                     $("#success").html(
                         '<span  class="alert alert-success d-block">' + response.message + '</span>');
-                } else if (response.status === 'error') {
+                }
+
+                if (response.status === 'error') {
                     const url =
                         "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=fr&dt=t&q=" +
                         encodeURI(response.message);
@@ -120,9 +122,11 @@
             }).then(response => {
                 if (response.status === 'success') {
                     console.log(response)
-                    // getCandidates()
-                    // $("#update").modal('hide')
-                } else if (response.status === 'error') {
+                    getCandidates()
+                    $("#update").modal('hide')
+                }
+
+                if (response.status === 'error') {
                     var url =
                         "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=fr&dt=t&q=" +
                         encodeURI(response.message)
@@ -159,8 +163,8 @@
                 $('#delete-candidate-btn').html(
                     'Oui'
                 )
-                $("#delete").modal('hide')
                 getCandidates()
+                $("#delete").modal('hide')
 
 
             }).catch(error => {
