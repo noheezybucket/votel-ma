@@ -26,10 +26,6 @@
         *::before {
             font-family: 'Poppins';
         }
-
-        .nav-link:active {
-            color: red;
-        }
     </style>
 
 
@@ -38,8 +34,10 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top  py-3">
         <div class="container-fluid">
-            <a class="navbar-brand text-xl  rounded p-2 bg-light text-primary fw-bold"
-                href="/"><span>ParrainApp</span><x-far-envelope style="width: 30px; margin-left:5px" /></a>
+            <a class="navbar-brand text-xl  rounded p-2 bg-light text-primary fw-bold" href="/">
+                <x-far-envelope style="width: 30px; margin-left:5px" />
+                <span>ParrainApp</span>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
