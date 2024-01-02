@@ -1,20 +1,21 @@
 @section('scripts')
     <script>
         const loadTable = (data) => {
-            var rows = []
+            let rows = []
             data.forEach(elt => {
                 rows.push({
                     id: elt.id,
                     nom: elt.nom,
                     prenom: elt.prenom,
-                    photo: elt.partie != 'zzzz' ? '<img src="/img/' + elt.photo +
+                    photo: elt.photo != 'default' ? '<img src="/img/' + elt.photo +
                         '.jpg" alt="" width="80px" class="rounded">' :
                         // '<img src="/img/default.png" alt="" width="150px" class="rounded">',
                         '<div class="bg-primary rounded text-white py-4 d-flex justify-content-center"><x-far-image style="width:50px"/></div>',
                     biographie: elt.biographie.substring(0, 150) + '...',
                     partie: elt.partie,
                     valider: elt.validate,
-
+                    maj: elt.updated_at.split('T')[0].replaceAll('-', '/') + ' à ' +
+                        elt.updated_at.split('T')[1].split('.')[0],
                     buttons: `
                     <div class="d-flex gap-2">
 
@@ -53,7 +54,8 @@
                 console.log(response)
                 if (response.status === 'success') {
                     $("#success").html(
-                        '<span  class="alert alert-success d-block">' + response.message + '</span>');
+                        '<span  class="alert alert-success alert-dismissible d-block">' + response.message +
+                        '</span>');
                 }
 
                 if (response.status === 'error') {
@@ -80,6 +82,7 @@
 
         // get candidates
         const getCandidates = () => {
+
             $.ajax({
                 url: "{{ route('candidate.list') }}",
                 method: "GET",
@@ -91,7 +94,10 @@
                     candidates.push(candidate)
                 })
 
+                console.log(candidates)
+
                 loadTable(candidates)
+
             }).catch(error => {
                 console.log(error)
 
@@ -184,14 +190,16 @@
             $("#view").on('shown.bs.modal', event => {
                 var button = event.relatedTarget
                 var candidate = JSON.parse(button.getAttribute('data-bs-candidate'))
+                console.log(candidate)
 
                 $("#prenom").val(candidate.prenom)
                 $("#nom").val(candidate.nom)
                 $("#biographie").val(candidate.biographie)
                 $("#partie").val(candidate.partie)
                 $("#valider").val(candidate.validate)
+                $("#maj").val(candidate.updated_at)
 
-                if (candidate.partie === 'zzzz') {
+                if (candidate.photo === 'default') {
                     $("#photo").attr('src', "/img/default.png")
 
                 } else {
@@ -211,7 +219,7 @@
                 $("#update-biographie").val(candidate.biographie)
                 $("#update-partie").val(candidate.partie)
 
-                if (candidate.partie === 'zzzz') {
+                if (candidate.photo === 'default') {
                     $("#update-photo").attr('src', "/img/default.png")
 
                 } else {
