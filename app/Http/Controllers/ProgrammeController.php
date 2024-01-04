@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Programme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProgrammeController extends Controller
 {
@@ -27,11 +28,21 @@ class ProgrammeController extends Controller
     {
         try {
             // Validate the incoming request data
-            $request->validate([
-                'titre' => 'required|string',
-                'contenu' => 'required|string',
-                'document' => 'required|file|mimes:pdf,doc,docx|max:2048', // Adjust allowed file types and size as needed
+
+            $validated = Validator::make($request->all(), [
+                $request->validate([
+                    'titre' => 'required|string',
+                    'contenu' => 'required|string',
+                    'document' => 'required|file|mimes:pdf,doc,docx|max:2048',
+                ])
             ]);
+
+            if ($validated->fails()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $validated->errors()->first(),
+                ]);
+            }
 
             // Handle file upload
             $file = $request->file('document');
@@ -64,7 +75,23 @@ class ProgrammeController extends Controller
     {
     }
 
-    function delete()
+    function delete($id)
     {
+        try {
+            $program = Programme::find($id);
+
+            $program->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => "Programme supprimé avec succès",
+                'program' => $program
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 }

@@ -7,7 +7,7 @@
                     id: elt.id,
                     titre: elt.titre,
                     contenu: elt.contenu,
-                    document: elt.document,
+                    document: `<a href="{{ asset('uploads/documents/${elt.document}') }}">Télécharger <x-fas-download style="width:20px" /></a>`,
                     buttons: `
                     <div class="d-flex gap-2">
 
@@ -53,6 +53,7 @@
                 '<div class="spinner-border spinner-border-sm" role="status"></div>')
 
             const formData = new FormData($("#create-program")[0])
+
             console.log(formData)
 
             $.ajax({
@@ -62,13 +63,55 @@
                 processData: false,
                 contentType: false,
                 timeout: 5000
-            }).then((res) => {
-                console.log(res)
+            }).then((response) => {
+                console.log(response)
+                if (response.status === 'success') {
+                    $("#success").html(
+                        '<span  class="alert alert-success alert-dismissible d-block">' + response.message +
+                        '</span>');
+                }
+
+                if (response.status === 'error') {
+                    const url =
+                        "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=fr&dt=t&q=" +
+                        encodeURI(response.message);
+                    $.getJSON(url, function(data) {
+                        $("#error").html(
+                            '<span  class="alert alert-danger d-block">' + data[0][0][0] + '</span>'
+                        );
+                    });
+                }
                 $('#create-program-btn').prop('disabled', false)
                 $('#create-program-btn').html(
                     'Créer le programme')
             }).catch((error) => {
-                conole.log(error)
+                console.log("no")
+                $('#create-program-btn').prop('disabled', false)
+                $('#create-program-btn').html(
+                    'Créer le candidat <x-fas-plus style="width:20px" />')
+            })
+        }
+
+        // delete program
+        const deleteProgram = () => {
+            $("#delete-program-btn").prop("disabled", true)
+            $("#delete-program-btn").html('<div class="spinner-border spinner-border-sm" role="status"></div>')
+
+            const delete_id = $("#delete-id").val()
+
+            $.ajax({
+                url: "http://127.0.0.1:8000/api/program/delete/" + delete_id,
+                method: "DELETE",
+                timeout: 5000
+            }).then(response => {
+                getPrograms()
+                $("#delete").modal('hide')
+                $("#delete-program-btn").prop("disabled", false)
+                $("#delete-program-btn").html('Oui')
+            }).catch(error => {
+                console.log(error)
+                $("#delete-program-btn").prop("disabled", false)
+                $("#delete-program-btn").html('Oui')
             })
         }
     </script>
@@ -84,9 +127,24 @@
 
                 $("#titre").val(program.titre);
                 $("#contenu").val(program.contenu);
-                $("#document").val(program.document);
+                $("#document").html(
+                    `<a href="{{ asset('uploads/documents/${program.document}') }}">Télécharger le document<x-fas-download style="width:20px" /></a>`
+                );
             })
 
+            $("#delete").on('show.bs.modal', event => {
+                var button = event.relatedTarget;
+                var program_id = JSON.parse(button.getAttribute('data-bs-id'))
+
+                $("#delete-id").val(program_id)
+            })
+
+            $("#delete-program-btn").click(deleteProgram)
+
+        }
+
+        if (window.location.href === "{{ route('admin.create-program') }}") {
+            $("#create-program-btn").click(createProgram)
         }
     </script>
 @endsection

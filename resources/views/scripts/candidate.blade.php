@@ -190,7 +190,6 @@
             $("#view").on('shown.bs.modal', event => {
                 var button = event.relatedTarget
                 var candidate = JSON.parse(button.getAttribute('data-bs-candidate'))
-                console.log(candidate)
 
                 $("#prenom").val(candidate.prenom)
                 $("#nom").val(candidate.nom)
