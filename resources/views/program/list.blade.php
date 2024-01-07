@@ -67,24 +67,29 @@
                 </div>
                 <div class="modal-body">
                     <div class="d-flex w-100 gap-3  ">
-                        <form class="w-100">
+                        <form class="w-100" id="update-program" enctype="multipart/form-data">
+                            <div id="update-error">
+                            </div>
+                            <div id="update-success">
+                            </div>
                             @csrf
                             <form class="w-100">
                                 <div class="mb-3">
                                     <div id="document"></div>
                                 </div>
                                 <div class="mb-3">
+                                    <input type="hidden" name="update-id" id="update-id">
                                     <label for="update-titre" class="col-form-label">Titre</label>
-                                    <input type="text" class="form-control" id="update-titre" name="update-titre"
-                                        disabled>
+                                    <input type="text" class="form-control" id="update-titre" name="update-titre">
                                 </div>
                                 <div>
                                     <label for="update-contenu" class="col-form-label">Contenu</label>
-                                    <textarea class="form-control" id="update-contenu" rows="10" disabled></textarea>
+                                    <textarea class="form-control" id="update-contenu" name="update-contenu" rows="10"></textarea>
                                 </div>
                                 <div class="form-group mt-2">
                                     <label for="update-document" class="form-label">Document</label>
-                                    <input type="file" id="update-document" name="update-document" class="form-control">
+                                    <input type="file" id="update-document" name="update-document"
+                                        class="form-control">
                                 </div>
                             </form>
                         </form>
@@ -92,7 +97,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fermer</button>
-                    <button type="button" id="update-candidate-btn" class="btn btn-warning">Sauvegarder</button>
+                    <button type="button" id="update-program-btn" class="btn btn-warning">Sauvegarder</button>
                 </div>
             </div>
         </div>
@@ -111,7 +116,7 @@
                     <p>Voulez-vous réelement supprimer ce programme? Notez que cette action est irréversible. </p>
                     <form>
                         @csrf
-                        <input type="text" name="delete-id" id="delete-id" class="delete-id">
+                        <input type="hidden" name="delete-id" id="delete-id" class="delete-id">
                     </form>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Non</button>
                     <button type="button" id="delete-program-btn" class="btn btn-danger">Oui</button>

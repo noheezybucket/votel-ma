@@ -72,7 +72,7 @@
                 $('#create-candidate-btn').html(
                     'Créer le candidat <x-far-square-plus style="width:20px" />')
             }).catch(err => {
-                console.log('no')
+                console.log(err)
                 $('#create-candidate-btn').prop('disabled', false)
                 $('#create-candidate-btn').html(
                     'Créer le candidat <x-far-square-plus style="width:20px" />')

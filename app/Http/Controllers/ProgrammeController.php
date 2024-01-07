@@ -71,14 +71,64 @@ class ProgrammeController extends Controller
         }
     }
 
-    function update()
+    function update(Request $request, $id)
     {
+        try {
+            $validated = Validator::make($request->all(), [
+                'titre' => 'required|string',
+                'contenu' => 'required|string',
+                // 'document' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            ]);
+
+
+
+            if ($validated->fails()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $validated->errors()->first(),
+                ]);
+            }
+
+            // Handle file upload
+            // $file = $request->file('document');
+            // $fileName = time() . '_' . $file->getClientOriginalName();
+            // $file->move(public_path('uploads/documents'), $fileName);
+
+
+            $program = Programme::find($id);
+
+            // $document_path = public_path('/uploads/documents/' . $program->document);
+
+            // if (file_exists($document_path)) {
+            //     unlink($document_path);
+            // }
+
+            $program->update($request->all());
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Programme modifié avec succès',
+                'programme' => $program,
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     function delete($id)
     {
         try {
             $program = Programme::find($id);
+
+
+            $document_path = public_path('uploads/documents/' . $program->document);
+
+            if (file_exists($document_path)) {
+                unlink($document_path);
+            }
 
             $program->delete();
 

@@ -7,7 +7,7 @@
                     id: elt.id,
                     titre: elt.titre,
                     contenu: elt.contenu,
-                    document: `<a href="{{ asset('uploads/documents/${elt.document}') }}">Télécharger <x-fas-download style="width:20px" /></a>`,
+                    document: `<a href="{{ asset('uploads/documents/${elt.document}') }}" class='btn btn-primary'>Télécharger <x-fas-download style="width:20px" /></a>`,
                     buttons: `
                     <div class="d-flex gap-2">
 
@@ -54,8 +54,6 @@
 
             const formData = new FormData($("#create-program")[0])
 
-            console.log(formData)
-
             $.ajax({
                 url: "{{ route('program.create') }}",
                 method: "POST",
@@ -66,15 +64,20 @@
             }).then((response) => {
                 console.log(response)
                 if (response.status === 'success') {
+                    $("#error").html('');
                     $("#success").html(
                         '<span  class="alert alert-success alert-dismissible d-block">' + response.message +
                         '</span>');
+
                 }
 
                 if (response.status === 'error') {
                     const url =
                         "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=fr&dt=t&q=" +
                         encodeURI(response.message);
+
+                    $("#success").html('');
+
                     $.getJSON(url, function(data) {
                         $("#error").html(
                             '<span  class="alert alert-danger d-block">' + data[0][0][0] + '</span>'
@@ -89,6 +92,61 @@
                 $('#create-program-btn').prop('disabled', false)
                 $('#create-program-btn').html(
                     'Créer le candidat <x-fas-plus style="width:20px" />')
+            })
+        }
+
+        // update program
+        const updateProgram = () => {
+            $("#update-program-btn").prop("disabled", true)
+            $("#update-program-btn").html('<div class="spinner-border spinner-border-sm" role="status"></div>')
+
+            const data = {
+                titre: $("#update-titre").val(),
+                contenu: $("#update-contenu").val(),
+                // document: $("#update-document")[0].files[0],
+            };
+
+            const update_id = $("#update-id").val()
+
+
+            $.ajax({
+                url: "http://127.0.0.1:8000/api/program/update/" + update_id,
+                method: "PUT",
+                timeout: 5000,
+                data: data,
+            }).then(response => {
+                console.log(data)
+                console.log(response)
+
+                $("#update-program-btn").prop("disabled", false)
+                $("#update-program-btn").html('Sauvegarder')
+
+                if (response.status === 'success') {
+                    getPrograms()
+                    $("#update").modal('hide')
+                    $("#update-error").html("");
+                    $("#update-success").html(
+                        '<span  class="alert alert-success alert-dismissible d-block">' + response.message +
+                        '</span>');
+                }
+
+                if (response.status === 'error') {
+                    $("#update-success").html('');
+
+                    const url =
+                        "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=fr&dt=t&q=" +
+                        encodeURI(response.message);
+
+                    $.getJSON(url, function(data) {
+                        $("#update-error").html(
+                            '<span  class="alert alert-danger d-block">' + data[0][0][0] + '</span>'
+                        );
+                    });
+                }
+            }).catch(error => {
+                console.log(error)
+                $("#update-program-btn").prop("disabled", false)
+                $("#update-program-btn").html('Sauvegarder')
             })
         }
 
@@ -123,13 +181,21 @@
             $("#view").on('show.bs.modal', event => {
                 var button = event.relatedTarget;
                 var program = JSON.parse(button.getAttribute('data-bs-program'));
-                console.log(program)
 
                 $("#titre").val(program.titre);
                 $("#contenu").val(program.contenu);
                 $("#document").html(
-                    `<a href="{{ asset('uploads/documents/${program.document}') }}">Télécharger le document<x-fas-download style="width:20px" /></a>`
+                    `<a href="{{ asset('uploads/documents/${program.document}') }}" class='btn btn-primary'>Télécharger le document <x-fas-download style="width:20px" /></a>`
                 );
+            })
+
+            $("#update").on('show.bs.modal', event => {
+                var button = event.relatedTarget;
+                var program = JSON.parse(button.getAttribute('data-bs-program'))
+
+                $("#update-id").val(program.id)
+                $("#update-titre").val(program.titre);
+                $("#update-contenu").val(program.contenu);
             })
 
             $("#delete").on('show.bs.modal', event => {
@@ -140,6 +206,8 @@
             })
 
             $("#delete-program-btn").click(deleteProgram)
+            $("#update-program-btn").click(updateProgram)
+
 
         }
 
