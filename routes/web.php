@@ -32,4 +32,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // programmes views
     Route::view('list-programs', 'program.list')->name('list-programs');
     Route::view('create-program', 'program.create')->name('create-program');
+    // secteurs views
+    Route::view('list-secteurs', 'secteur.list')->name('list-secteurs');
+    Route::view('create-secteur', 'secteur.create')->name('create-secteur');
 });
+
+
+// Route::prefix('electeur')->name('electeur.')->group(function () {
+//     Route::view('list-candidates', 'candidate.list')->name('list-candidate');
+// });

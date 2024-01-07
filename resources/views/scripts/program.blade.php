@@ -38,7 +38,7 @@
                 });
                 console.log(programs)
 
-                loadTable(programs)
+                loadTable(res.programs)
 
             }).catch((error) => {
                 console.log(error)
@@ -86,12 +86,12 @@
                 }
                 $('#create-program-btn').prop('disabled', false)
                 $('#create-program-btn').html(
-                    'Créer le programme')
+                    'Créer le programme <x-fas-plus style="width:20px" />')
             }).catch((error) => {
                 console.log("no")
                 $('#create-program-btn').prop('disabled', false)
                 $('#create-program-btn').html(
-                    'Créer le candidat <x-fas-plus style="width:20px" />')
+                    'Créer le programme <x-fas-plus style="width:20px" />')
             })
         }
 

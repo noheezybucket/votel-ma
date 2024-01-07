@@ -44,18 +44,14 @@ class ProgrammeController extends Controller
                 ]);
             }
 
-            // Handle file upload
             $file = $request->file('document');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('uploads/documents'), $fileName);
 
-            // Save other form data to the database or perform other actions as needed
-            // For example, assuming you have a Model called Program:
-
             $program = new Programme();
             $program->titre = $request->input('titre');
             $program->contenu = $request->input('contenu');
-            $program->document = $fileName; // Save the file name in the database
+            $program->document = $fileName;
 
             $program->save();
 

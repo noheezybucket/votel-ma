@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CandidatController;
 use App\Http\Controllers\ProgrammeController;
+use App\Http\Controllers\SecteurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,11 @@ Route::prefix('program')->name('program.')->group(function () {
     Route::post('create', [ProgrammeController::class, 'create'])->name('create');
     Route::put('update/{id}', [ProgrammeController::class, 'update'])->name('update');
     Route::delete('delete/{id}', [ProgrammeController::class, 'delete'])->name('delete');
+});
+
+Route::prefix('secteur')->name('secteur.')->group(function () {
+    Route::get('list', [SecteurController::class, 'index'])->name('list');
+    Route::post('create', [SecteurController::class, 'create'])->name('create');
+    Route::put('update/{id}', [SecteurController::class, 'update'])->name('update');
+    Route::delete('delete/{id}', [SecteurController::class, 'delete'])->name('delete');
 });

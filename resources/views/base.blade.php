@@ -59,7 +59,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="formations">Secteurs</a>
+                        <a class="nav-link active" aria-current="page"
+                            href="{{ route('admin.list-secteurs') }}">Secteurs</a>
                     </li>
 
                 </ul>
@@ -67,7 +68,6 @@
         </div>
     </nav>
     <div class="p-2">
-
         @yield('content')
     </div>
 

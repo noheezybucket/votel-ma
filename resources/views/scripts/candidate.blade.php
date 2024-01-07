@@ -3,13 +3,13 @@
         const loadTable = (data) => {
             let rows = []
             data.forEach(elt => {
+                console.log(elt.photo)
                 rows.push({
                     id: elt.id,
                     nom: elt.nom,
                     prenom: elt.prenom,
-                    photo: elt.photo != 'default' ? '<img src="/img/' + elt.photo +
-                        '.jpg" alt="" width="80px" class="rounded">' :
-                        // '<img src="/img/default.png" alt="" width="150px" class="rounded">',
+                    photo: elt.photo != null ?
+                        `<img src="{{ asset('uploads/images/${elt.photo}') }}"  alt="" width="80px" class="rounded">` :
                         '<div class="bg-primary rounded text-white py-4 d-flex justify-content-center"><x-far-image style="width:50px"/></div>',
                     biographie: elt.biographie.substring(0, 150) + '...',
                     partie: elt.partie,
@@ -37,22 +37,20 @@
             $('#create-candidate-btn').html(
                 '<div class="spinner-border spinner-border-sm" role="status"></div>')
 
-            let data = {
-                nom: $("#nom").val(),
-                prenom: $("#prenom").val(),
-                partie: $("#partie").val(),
-                biographie: $("#biographie").val(),
-                valider: $('#valider').val()
-            }
+            let data = new FormData($("#create-candidate")[0])
 
             $.ajax({
                 url: "{{ route('candidate.create') }}",
                 method: "POST",
                 timeout: 5000,
-                data: data
+                data: data,
+                processData: false,
+                contentType: false,
             }).then(response => {
                 console.log(response)
                 if (response.status === 'success') {
+                    $("#error").html('');
+
                     $("#success").html(
                         '<span  class="alert alert-success alert-dismissible d-block">' + response.message +
                         '</span>');
@@ -62,6 +60,8 @@
                     const url =
                         "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=fr&dt=t&q=" +
                         encodeURI(response.message);
+
+                    $("#success").html('');
                     $.getJSON(url, function(data) {
                         $("#error").html(
                             '<span  class="alert alert-danger d-block">' + data[0][0][0] + '</span>'
@@ -88,15 +88,8 @@
                 method: "GET",
                 timeout: 5000,
             }).then(response => {
-                let candidates = [];
 
-                response.candidates.forEach(candidate => {
-                    candidates.push(candidate)
-                })
-
-                console.log(candidates)
-
-                loadTable(candidates)
+                loadTable(response.candidates)
 
             }).catch(error => {
                 console.log(error)
@@ -202,7 +195,7 @@
                     $("#photo").attr('src', "/img/default.png")
 
                 } else {
-                    $("#photo").attr('src', "/img/" + candidate.nom + ".jpg")
+                    $("#photo").attr('src', `http://localhost:8000/uploads/images/${candidate.photo}`)
 
                 }
             })
@@ -222,7 +215,7 @@
                     $("#update-photo").attr('src', "/img/default.png")
 
                 } else {
-                    $("#update-photo").attr('src', "/img/" + candidate.nom + ".jpg")
+                    $("#update-photo").attr('src', `http://localhost:8000/uploads/images/${candidate.photo}`)
                 }
             })
 
