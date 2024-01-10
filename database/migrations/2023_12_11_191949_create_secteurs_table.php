@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('secteurs', function (Blueprint $table) {
             $table->id();
-            $table->string('label');
-            $table->string('couleur');
-            $table->string('icon');
+            $table->string('label')->unique();
+            $table->string('couleur')->unique();
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
     }

@@ -32,6 +32,7 @@ class CandidatController extends Controller
                 'prenom' => 'required',
                 'partie' => 'required',
                 'biographie' => 'required',
+                'photo' => 'required|file|mimes:jpg,jpeg,png,webp|max:2048'
             ]);
 
 
@@ -42,6 +43,10 @@ class CandidatController extends Controller
                 ]);
             }
 
+            $file = $request->file('photo');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/images'), $fileName);
+
             $candidat = new Candidat();
 
             $candidat->nom = $request->nom;
@@ -49,7 +54,7 @@ class CandidatController extends Controller
             $candidat->partie = $request->partie;
             $candidat->biographie = $request->biographie;
             $candidat->validate = 0;
-            $candidat->photo = "default";
+            $candidat->photo = $fileName;
 
             $candidat->save();
 

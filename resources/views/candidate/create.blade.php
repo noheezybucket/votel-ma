@@ -9,7 +9,7 @@
         <a class="btn btn-danger" href="{{ route('admin.list-candidate') }}">Retour</a>
     </div>
 
-    <form id="create-candidate" class="w-50 mx-auto row ">
+    <form id="create-candidate" class="w-50 mx-auto row " enctype="multipart/form-data">
         <div id="error">
         </div>
         <div id="success">
@@ -34,7 +34,7 @@
         <input type="hidden" name="validate" id='validate' name="validate" value="{{ 0 }}">
         <div class="form-group mt-2">
             <label for="photo" class="form-label">Photo</label>
-            <input type="file" id="photo" class="form-control">
+            <input type="file" id="photo" name="photo" class="form-control">
         </div>
         <div class="form-group">
             <button type="button" id="create-candidate-btn"

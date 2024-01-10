@@ -1,28 +1,29 @@
 @section('scripts')
     <script>
         const loadTable = (data) => {
-            var rows = []
+            let rows = []
             data.forEach(elt => {
+                console.log(elt.photo)
                 rows.push({
                     id: elt.id,
                     nom: elt.nom,
                     prenom: elt.prenom,
-                    photo: elt.partie != 'zzzz' ? '<img src="/img/' + elt.photo +
-                        '.jpg" alt="" width="80px" class="rounded">' :
-                        // '<img src="/img/default.png" alt="" width="150px" class="rounded">',
+                    photo: elt.photo != null ?
+                        `<img src="{{ asset('uploads/images/${elt.photo}') }}"  alt="" width="50px" class="rounded">` :
                         '<div class="bg-primary rounded text-white py-4 d-flex justify-content-center"><x-far-image style="width:50px"/></div>',
                     biographie: elt.biographie.substring(0, 150) + '...',
                     partie: elt.partie,
                     valider: elt.validate,
-
+                    maj: elt.updated_at.split('T')[0].replaceAll('-', '/') + ' à ' +
+                        elt.updated_at.split('T')[1].split('.')[0],
                     buttons: `
-                    <div class="d-flex gap-2">
+                    <div class="d-flex justify-content-center gap-2">
 
-                    <button type="button" class="btn btn-primary px-2 py-1" data-bs-toggle="modal" data-bs-target="#view" data-bs-candidate='${JSON.stringify(elt)}'><x-far-eye style="width:20px" /></button>
+                    <button type="button" class="btn btn-outline-primary px-2 py-1" data-bs-toggle="modal" data-bs-target="#view" data-bs-candidate='${JSON.stringify(elt)}'><x-far-eye style="width:20px" /></button>
 
-                    <button type="button" class="btn btn-warning px-2 py-1" data-bs-toggle="modal" data-bs-target="#update" data-bs-candidate='${JSON.stringify(elt)}'><x-far-pen-to-square style="width:20px" class='text-white'/></button>
+                    <button type="button" class="btn btn-outline-warning px-2 py-1" data-bs-toggle="modal" data-bs-target="#update" data-bs-candidate='${JSON.stringify(elt)}'><x-far-pen-to-square style="width:20px"/></button>
                     
-                    <button type="button" class="btn btn-danger px-2 py-1" data-bs-toggle="modal" data-bs-target="#delete" data-bs-id='${JSON.stringify(elt.id)}' ><x-far-trash-can style="width:20px" /></button>
+                    <button type="button" class="btn btn-outline-danger px-2 py-1" data-bs-toggle="modal" data-bs-target="#delete" data-bs-id='${JSON.stringify(elt.id)}' ><x-far-trash-can style="width:20px" /></button>
                     </div>
                     `
                 })
@@ -36,30 +37,31 @@
             $('#create-candidate-btn').html(
                 '<div class="spinner-border spinner-border-sm" role="status"></div>')
 
-            let data = {
-                nom: $("#nom").val(),
-                prenom: $("#prenom").val(),
-                partie: $("#partie").val(),
-                biographie: $("#biographie").val(),
-                valider: $('#valider').val()
-            }
+            let data = new FormData($("#create-candidate")[0])
 
             $.ajax({
                 url: "{{ route('candidate.create') }}",
                 method: "POST",
                 timeout: 5000,
-                data: data
+                data: data,
+                processData: false,
+                contentType: false,
             }).then(response => {
                 console.log(response)
                 if (response.status === 'success') {
+                    $("#error").html('');
+
                     $("#success").html(
-                        '<span  class="alert alert-success d-block">' + response.message + '</span>');
+                        '<span  class="alert alert-success alert-dismissible d-block">' + response.message +
+                        '</span>');
                 }
 
                 if (response.status === 'error') {
                     const url =
                         "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=fr&dt=t&q=" +
                         encodeURI(response.message);
+
+                    $("#success").html('');
                     $.getJSON(url, function(data) {
                         $("#error").html(
                             '<span  class="alert alert-danger d-block">' + data[0][0][0] + '</span>'
@@ -70,7 +72,7 @@
                 $('#create-candidate-btn').html(
                     'Créer le candidat <x-far-square-plus style="width:20px" />')
             }).catch(err => {
-                console.log('no')
+                console.log(err)
                 $('#create-candidate-btn').prop('disabled', false)
                 $('#create-candidate-btn').html(
                     'Créer le candidat <x-far-square-plus style="width:20px" />')
@@ -80,18 +82,15 @@
 
         // get candidates
         const getCandidates = () => {
+
             $.ajax({
                 url: "{{ route('candidate.list') }}",
                 method: "GET",
                 timeout: 5000,
             }).then(response => {
-                let candidates = [];
 
-                response.candidates.forEach(candidate => {
-                    candidates.push(candidate)
-                })
+                loadTable(response.candidates)
 
-                loadTable(candidates)
             }).catch(error => {
                 console.log(error)
 
@@ -190,12 +189,13 @@
                 $("#biographie").val(candidate.biographie)
                 $("#partie").val(candidate.partie)
                 $("#valider").val(candidate.validate)
+                $("#maj").val(candidate.updated_at)
 
-                if (candidate.partie === 'zzzz') {
+                if (candidate.photo === 'default') {
                     $("#photo").attr('src', "/img/default.png")
 
                 } else {
-                    $("#photo").attr('src', "/img/" + candidate.nom + ".jpg")
+                    $("#photo").attr('src', `http://localhost:8000/uploads/images/${candidate.photo}`)
 
                 }
             })
@@ -211,11 +211,11 @@
                 $("#update-biographie").val(candidate.biographie)
                 $("#update-partie").val(candidate.partie)
 
-                if (candidate.partie === 'zzzz') {
+                if (candidate.photo === 'default') {
                     $("#update-photo").attr('src', "/img/default.png")
 
                 } else {
-                    $("#update-photo").attr('src', "/img/" + candidate.nom + ".jpg")
+                    $("#update-photo").attr('src', `http://localhost:8000/uploads/images/${candidate.photo}`)
                 }
             })
 
