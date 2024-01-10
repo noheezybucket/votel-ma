@@ -11,28 +11,30 @@
     @endif
 
     <div id="toolbar" class="">
-        <a class=" btn btn-primary mb-2 align-items-center d-flex gap-1" style="width:fit-content;"
+        <a class=" btn btn-outline-light  align-items-center d-flex gap-1" style="width:fit-content;"
             href="{{ route('admin.create-candidate') }}"> Nouveau
             candidat <x-fas-plus style="width:20px" /></a>
     </div>
-    <div class="table-responsive mx-auto ">
+    <div class="table-responsive mx-auto bg-primary rounded-3 px-2 pb-2">
+        <div class="rounded-3 overflow-hidden">
 
-        <table id=candidate-table class="table table-striped table-hover border caption-top" data-toggle='table'
-            data-pagination="true" data-search-align="right" data-search="true" data-toolbar="#toolbar" data-locale="fr-FR">
+            <table id=candidate-table class="table table-hover" data-toggle='table' data-pagination="false"
+                data-search-align="right" data-search="true" data-toolbar="#toolbar" data-locale="fr-FR">
 
-            <thead align="left">
-                <th data-field="photo">Candidat</th>
-                <th data-field="id" data-sortable="true">#</th>
-                <th data-field="prenom" data-sortable='true'>Prenom</th>
-                <th data-field="nom" data-search="true">Nom</th>
-                <th data-field="partie" data-sortable="true">Partie</th>
-                <th data-field="biographie">Biographie</th>
-                <th data-field="maj">Mis à jour</th>
-                <th data-field="buttons" width="20%"></th>
-            </thead>
-            <tbody id="candidate-table-body"></tbody>
-            <tfoot></tfoot>
-        </table>
+                <thead align="center">
+                    <th data-field="photo">Candidat</th>
+                    <th data-field="id" data-sortable="true">#</th>
+                    <th data-field="prenom" data-sortable='true'>Prenom</th>
+                    <th data-field="nom" data-search="true">Nom</th>
+                    <th data-field="partie" data-sortable="true">Partie</th>
+                    <th data-field="biographie">Biographie</th>
+                    <th data-field="maj" data-switchable-label="true">Mis à jour</th>
+                    <th data-field="buttons">Boutons</th>
+                </thead>
+                <tbody id="candidate-table-body" align="center"></tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
 
     </div>
 

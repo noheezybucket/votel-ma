@@ -4,25 +4,27 @@
 
 @section('content')
     <div id="toolbar" class="">
-        <a class=" btn btn-primary mb-2 align-items-center d-flex gap-1" style="width:fit-content;"
+        <a class=" btn btn-outline-light mb-2 align-items-center d-flex gap-1" style="width:fit-content;"
             href="{{ route('admin.create-secteur') }}"> Nouveau
             secteur <x-fas-plus style="width:20px" /></a>
     </div>
-    <div class="table-responsive mx-auto">
+    <div class="table-responsive mx-auto bg-primary rounded-3 px-2 pb-2">
+        <div class="rounded-3 overflow-hidden">
+            <table id=secteur-table class="table table-striped table-hover border caption-top" data-toggle='table'
+                data-pagination="false" data-search-align="right" data-search="true" data-toolbar="#toolbar"
+                data-locale="fr-FR">
 
-        <table id=secteur-table class="table table-striped table-hover border caption-top" data-toggle='table'
-            data-pagination="true" data-search-align="right" data-search="true" data-toolbar="#toolbar" data-locale="fr-FR">
-
-            <thead align="left">
-                <th data-field="id" data-sortable="true">#</th>
-                <th data-field="label" data-sortable='true'>Label</th>
-                <th data-field="couleur" data-sortable='true'>Couleur</th>
-                {{-- <th data-field="icon" data-sortable='true'>Icône</th> --}}
-                <th data-field="buttons" width="20%"></th>
-            </thead>
-            <tbody></tbody>
-            <tfoot></tfoot>
-        </table>
+                <thead align="center">
+                    <th data-field="id" data-sortable="true">#</th>
+                    <th data-field="label" data-sortable='true'>Label</th>
+                    <th data-field="couleur" data-sortable='true'>Couleur</th>
+                    {{-- <th data-field="icon" data-sortable='true'>Icône</th> --}}
+                    <th data-field="buttons">Boutons</th>
+                </thead>
+                <tbody align="center"></tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
     </div>
 
     {{-- Delete View --}}

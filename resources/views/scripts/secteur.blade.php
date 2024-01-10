@@ -10,15 +10,13 @@
                     couleur: `<div class='bg-${elt.couleur} py-3 rounded'></div>`,
                     icon: elt.icon,
                     buttons: `
-                    <div class="d-flex gap-2">
-
-                    <button type="button" class="btn btn-warning px-2 py-1" data-bs-toggle="modal" data-bs-target="#update" data-bs-secteur='${JSON.stringify(elt)}'><x-far-pen-to-square style="width:20px" class='text-white'/></button>
-                    
-                    <button type="button" class="btn btn-danger px-2 py-1" data-bs-toggle="modal" data-bs-target="#delete" data-bs-id='${JSON.stringify(elt.id)}' ><x-far-trash-can style="width:20px" /></button>
-                    </div>
-                    `
+                    <div class="d-flex justify-content-center gap-2">
+                        <button type="button" class="btn btn-outline-danger px-2 py-1" data-bs-toggle="modal" data-bs-target="#delete" data-bs-id='${JSON.stringify(elt.id)}' ><x-far-trash-can style="width:20px" /></button>
+                        </div>
+                        `
                 });
             })
+            // <button type="button" class="btn btn-warning px-2 py-1" data-bs-toggle="modal" data-bs-target="#update" data-bs-secteur='${JSON.stringify(elt)}'><x-far-pen-to-square style="width:20px" class='text-white'/></button>
 
             $("#secteur-table").bootstrapTable('load', rows)
         }

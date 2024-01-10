@@ -9,7 +9,7 @@
                     nom: elt.nom,
                     prenom: elt.prenom,
                     photo: elt.photo != null ?
-                        `<img src="{{ asset('uploads/images/${elt.photo}') }}"  alt="" width="80px" class="rounded">` :
+                        `<img src="{{ asset('uploads/images/${elt.photo}') }}"  alt="" width="50px" class="rounded">` :
                         '<div class="bg-primary rounded text-white py-4 d-flex justify-content-center"><x-far-image style="width:50px"/></div>',
                     biographie: elt.biographie.substring(0, 150) + '...',
                     partie: elt.partie,
@@ -17,13 +17,13 @@
                     maj: elt.updated_at.split('T')[0].replaceAll('-', '/') + ' à ' +
                         elt.updated_at.split('T')[1].split('.')[0],
                     buttons: `
-                    <div class="d-flex gap-2">
+                    <div class="d-flex justify-content-center gap-2">
 
-                    <button type="button" class="btn btn-primary px-2 py-1" data-bs-toggle="modal" data-bs-target="#view" data-bs-candidate='${JSON.stringify(elt)}'><x-far-eye style="width:20px" /></button>
+                    <button type="button" class="btn btn-outline-primary px-2 py-1" data-bs-toggle="modal" data-bs-target="#view" data-bs-candidate='${JSON.stringify(elt)}'><x-far-eye style="width:20px" /></button>
 
-                    <button type="button" class="btn btn-warning px-2 py-1" data-bs-toggle="modal" data-bs-target="#update" data-bs-candidate='${JSON.stringify(elt)}'><x-far-pen-to-square style="width:20px" class='text-white'/></button>
+                    <button type="button" class="btn btn-outline-warning px-2 py-1" data-bs-toggle="modal" data-bs-target="#update" data-bs-candidate='${JSON.stringify(elt)}'><x-far-pen-to-square style="width:20px"/></button>
                     
-                    <button type="button" class="btn btn-danger px-2 py-1" data-bs-toggle="modal" data-bs-target="#delete" data-bs-id='${JSON.stringify(elt.id)}' ><x-far-trash-can style="width:20px" /></button>
+                    <button type="button" class="btn btn-outline-danger px-2 py-1" data-bs-toggle="modal" data-bs-target="#delete" data-bs-id='${JSON.stringify(elt.id)}' ><x-far-trash-can style="width:20px" /></button>
                     </div>
                     `
                 })
