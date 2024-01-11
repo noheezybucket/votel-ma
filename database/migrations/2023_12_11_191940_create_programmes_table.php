@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('candidat_id')->unsigned();
             $table->string('titre');
             $table->text('contenu');
             $table->string('document');
             $table->timestamps();
+
+            $table->foreign('candidat_id')->references('id')->on('candidats')->onDelete('cascade');
         });
     }
 

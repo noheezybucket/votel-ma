@@ -3,12 +3,13 @@
 @section('title', 'Ajouter un programme')
 
 @section('content')
-    <div class=" my-3 d-flex align-items-center justify-content-between gap-3 w-50 mx-auto">
+    <div class="my-3 d-flex align-items-center justify-content-between container-sm mx-auto p-0">
         <h2>Nouveau programme</h2>
         <a class="btn btn-danger" href="{{ route('admin.list-programs') }}">Retour</a>
     </div>
 
-    <form id="create-program" class="w-50 mx-auto row" enctype="multipart/form-data">
+    <form id="create-program" class="container-sm bg-primary text-white mx-auto row py-3 rounded-3"
+        enctype="multipart/form-data">
         <div id="error">
         </div>
         <div id="success">
@@ -17,6 +18,16 @@
         <div class="form-group">
             <label for="titre" class="form-label">Titre</label>
             <input type="text" id="titre" name="titre" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="candidat_id" class="form-label">Candidat</label>
+            <select id="candidat_id" name="candidat_id" class="form-select" aria-label="Default select example">
+                <option value="1">Ali</option>
+                <option value="2">warning</option>
+                <option value="3">info</option>
+                <option value="4">red</option>
+            </select>
         </div>
 
         <div class="form-group mt-2">
@@ -29,7 +40,7 @@
         </div>
         <div class="form-group">
             <button type="button" id="create-program-btn"
-                class="btn btn-primary w-100 mt-3 align-items-center d-flex gap-1 justify-content-center">
+                class="btn btn-outline-light w-100 mt-3 align-items-center d-flex gap-1 justify-content-center">
                 Créer le programme
                 <x-fas-plus style="width:20px" />
             </button>

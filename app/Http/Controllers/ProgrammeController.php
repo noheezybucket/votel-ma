@@ -29,13 +29,16 @@ class ProgrammeController extends Controller
         try {
             // Validate the incoming request data
 
-            $validated = Validator::make($request->all(), [
-                $request->validate([
+            $validated = Validator::make(
+                $request->all(),
+                [
                     'titre' => 'required|string',
                     'contenu' => 'required|string',
                     'document' => 'required|file|mimes:pdf,doc,docx|max:2048',
-                ])
-            ]);
+                    'candidat_id' => 'required|exists:candidats,id',
+
+                ]
+            );
 
             if ($validated->fails()) {
                 return response()->json([
@@ -52,6 +55,7 @@ class ProgrammeController extends Controller
             $program->titre = $request->input('titre');
             $program->contenu = $request->input('contenu');
             $program->document = $fileName;
+            $program->candidat_id = $request->candidat_id;
 
             $program->save();
 

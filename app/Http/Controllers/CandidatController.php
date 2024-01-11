@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Validator;
 
 class CandidatController extends Controller
 {
+    /**
+     * List of all candidates
+     */
     function index()
     {
         try {
@@ -23,6 +26,9 @@ class CandidatController extends Controller
         }
     }
 
+    /**
+     * Creates a candidate and stores it in the database
+     */
     function create(Request $request)
     {
         try {
@@ -70,7 +76,9 @@ class CandidatController extends Controller
         }
     }
 
-
+    /**
+     * Update a candidate info
+     */
     function update(Request $request, $id)
     {
         try {
@@ -107,7 +115,9 @@ class CandidatController extends Controller
         }
     }
 
-
+    /**
+     * Delete a candidate
+     */
     function  delete($id)
     {
         try {
@@ -124,5 +134,25 @@ class CandidatController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
+    }
+
+    /**
+     * Show candidates programs
+     */
+    public function show_programmes(Candidat $candidat)
+    {
+        $programmes = $candidat->programmes;
+
+        if (count($programmes) > 0) {
+            return response()->json([
+                'status' => 'success',
+                'programmes' => $programmes
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'message' => "Aucun programme trouvé pour ce candidat"
+        ], 200);
     }
 }

@@ -4,12 +4,13 @@
 
 @section('content')
 
-    <div class=" my-3 d-flex align-items-center justify-content-between gap-3 w-50 mx-auto">
+    <div class=" my-3 d-flex align-items-center justify-content-between gap-3 mx-auto container-sm">
         <h2>Nouveau candidat</h2>
         <a class="btn btn-danger" href="{{ route('admin.list-candidate') }}">Retour</a>
     </div>
 
-    <form id="create-candidate" class="w-50 mx-auto row " enctype="multipart/form-data">
+    <form id="create-candidate" class="container-sm mx-auto row bg-primary text-white rounded-3 py-4"
+        enctype="multipart/form-data">
         <div id="error">
         </div>
         <div id="success">
@@ -38,9 +39,9 @@
         </div>
         <div class="form-group">
             <button type="button" id="create-candidate-btn"
-                class="btn btn-primary w-100 mt-3 align-items-center d-flex gap-1 justify-content-center">
+                class="btn btn-outline-light w-100 mt-3 align-items-center d-flex gap-1 justify-content-center">
                 Créer le candidat
-                <x-far-square-plus style="width:20px" />
+                <x-fas-plus style="width:20px" />
             </button>
         </div>
     </form>

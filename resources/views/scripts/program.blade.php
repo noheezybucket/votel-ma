@@ -9,7 +9,7 @@
                     contenu: elt.contenu,
                     document: `<a href="{{ asset('uploads/documents/${elt.document}') }}" class='btn btn-primary'>Télécharger <x-fas-download style="width:20px" /></a>`,
                     buttons: `
-                    <div class="d-flex justify-content-center gap-2">
+                    <div class="d-flex gap-2">
 
                     <button type="button" class="btn btn-outline-primary px-2 py-1" data-bs-toggle="modal" data-bs-target="#view" data-bs-program='${JSON.stringify(elt)}'><x-far-eye style="width:20px" /></button>
 
@@ -60,7 +60,7 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                timeout: 5000
+                timeout: 15000
             }).then((response) => {
                 console.log(response)
                 if (response.status === 'success') {
@@ -88,7 +88,7 @@
                 $('#create-program-btn').html(
                     'Créer le programme <x-fas-plus style="width:20px" />')
             }).catch((error) => {
-                console.log("no")
+                console.log("AJAX" + error)
                 $('#create-program-btn').prop('disabled', false)
                 $('#create-program-btn').html(
                     'Créer le programme <x-fas-plus style="width:20px" />')

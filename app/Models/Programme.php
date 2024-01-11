@@ -9,5 +9,10 @@ class Programme extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titre', 'contenu', 'document'];
+    protected $fillable = ['titre', 'contenu', 'document', 'candidat_id'];
+
+    public function candidat()
+    {
+        return $this->belongsTo(Candidat::class);
+    }
 }
