@@ -4,7 +4,7 @@
             let rows = [];
             data.forEach(elt => {
                 rows.push({
-                    candidat: `<img src="{{ asset('uploads/images/${elt.candidat[0].photo}') }}"  alt="" width="50px" class="rounded">`,
+                    candidat: `<img src="{{ asset('uploads/images/${elt.candidat[0].photo}') }}"  alt="" width="70px" class="rounded">`,
                     nom: elt.candidat[0].prenom + ' ' + elt.candidat[0].nom,
                     id: elt.program.id,
                     titre: elt.program.titre,
@@ -205,6 +205,8 @@
                 $("#update-id").val(program.program.id)
                 $("#update-titre").val(program.program.titre);
                 $("#update-contenu").val(program.program.contenu);
+                $("#update-photo").attr('src',
+                    `http://localhost:8000/uploads/images/${program.candidat[0].photo}`)
 
                 const selectElement = $("#update-candidat");
 

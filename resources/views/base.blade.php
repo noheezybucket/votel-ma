@@ -44,24 +44,58 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="{{ route('admin.list-candidate') }}">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="{{ route('admin.list-candidate') }}">Candidats</a>
-                    </li>
+                    @if (request()->is('admin/*'))
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                                href="{{ route('admin.dashboard') }}">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                                href="{{ route('admin.list-candidate') }}">Candidats</a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="{{ route('admin.list-programs') }}">Programmes</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                                href="{{ route('admin.list-programs') }}">Programmes</a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="{{ route('admin.list-secteurs') }}">Secteurs</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                                href="{{ route('admin.list-secteurs') }}">Secteurs</a>
+                        </li>
+                    @endif
+
+                    @if (request()->is('electeur/*'))
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                                href="{{ route('electeur.stats') }}">Statistiques</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                                href="{{ route('electeur.candidates') }}">Candidats</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                                href="{{ route('electeur.programs') }}">Programmes</a>
+                        </li>
+                    @endif
+                    {{-- 
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Candidat
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li> <a class="dropdown-item" aria-current="page"
+                                    href="{{ route('admin.list-candidate') }}">Liste des candidats</a>
+                            </li>
+                            <hr class="dropdown-divider">
+                            <li> <a class="dropdown-item" aria-current="page"
+                                    href="{{ route('admin.create-candidate') }}">Créer un candidat</a>
+                            </li>
+
+                        </ul>
+                    </li> --}}
 
                 </ul>
             </div>

@@ -15,7 +15,7 @@
             href="{{ route('admin.create-candidate') }}"> Nouveau
             candidat <x-fas-plus style="width:20px" /></a>
     </div>
-    <div class="table-responsive mx-auto bg-primary rounded-3 px-2 pb-2">
+    <div class="table-responsive mx-auto bg-primary rounded-3 px-2 pb-2 container">
         <div class="rounded-3 overflow-hidden">
 
             <table id=candidate-table class="table table-hover" data-toggle='table' data-pagination="false"
@@ -41,21 +41,19 @@
 
     {{-- View Modal --}}
     <div class="modal fade" id="view" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="viewModalLabel">Vue détaillée</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="w-100 d-flex justify-content-center">
+                        <img src="" alt="" id="photo" style=" width:250px; height:250px; display:block"
+                            class="rounded-circle object-fit-cover">
+                    </div>
                     <div class="d-flex w-100 gap-3">
-
-                        <div class="w-25">
-                            <img src="" alt="" id="photo"
-                                style="max-height:100px max-width:120px; width:100%; height:70%; object-fit:cover"
-                                class="rounded object-fit-cover">
-                        </div>
-                        <form class="w-75">
+                        <form class="w-100">
                             <div class="mb-3">
                                 <label for="prenom" class="col-form-label">Prenom</label>
                                 <input type="text" class="form-control" id="prenom" name="prenom" disabled>
@@ -88,21 +86,21 @@
 
     {{-- Update View --}}
     <div class="modal fade" id="update" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="updateModalLabel">Modification</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="w-100 d-flex justify-content-center">
+
+                        <img src="" alt="" id="update-photo"
+                            style=" width:250px; height:250px; display:block" class="rounded-circle object-fit-cover">
+                    </div>
                     <div class="d-flex w-100 gap-3  ">
 
-                        <div class="w-25">
-                            <img src="" alt="" id="update-photo"
-                                style="max-height:100px max-width:120px; width:100%; height:100%; object-fit:cover"
-                                class="rounded object-fit-cover">
-                        </div>
-                        <form class="w-75">
+                        <form class="w-100">
                             @csrf
                             <div id="update-error"></div>
                             <input type="hidden" name="update-id" id="update-id">

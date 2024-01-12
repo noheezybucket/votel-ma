@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CandidatController;
+use App\Http\Controllers\ElecteurController;
 use App\Http\Controllers\ProgrammeController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,9 @@ Route::prefix('auth')->name('auth.')->group(function () {
 
 // admin routes
 Route::prefix('admin')->name('admin.')->group(function () {
+    // dashboard
+    Route::view('dashboard', 'admin.dashboard')->name('dashboard');
+
     // candidates views
     Route::view('list-candidates', 'candidate.list')->name('list-candidate');
     Route::view('create-candidate', 'candidate.create')->name('create-candidate');
@@ -39,6 +43,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 
-// Route::prefix('electeur')->name('electeur.')->group(function () {
-//     Route::view('list-candidates', 'candidate.list')->name('list-candidate');
-// });
+Route::prefix('electeur')->name('electeur.')->group(function () {
+    Route::get('candidates', [ElecteurController::class, 'index'])->name('candidates');
+    Route::view('statistics', 'electeur.stats')->name('stats');
+    Route::view('programs', 'electeur.programs')->name('programs');
+});

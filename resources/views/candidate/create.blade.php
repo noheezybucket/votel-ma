@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class=" my-3 d-flex align-items-center justify-content-between gap-3 mx-auto container-sm">
+    <div class="mt-2 d-flex align-items-center justify-content-between mx-auto container p-0">
         <h2>Nouveau candidat</h2>
         <a class="btn btn-danger" href="{{ route('admin.list-candidate') }}">Retour</a>
     </div>

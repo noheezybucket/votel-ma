@@ -8,7 +8,7 @@
             href="{{ route('admin.create-secteur') }}"> Nouveau
             secteur <x-fas-plus style="width:20px" /></a>
     </div>
-    <div class="table-responsive mx-auto bg-primary rounded-3 px-2 pb-2">
+    <div class="table-responsive mx-auto bg-primary rounded-3 px-2 pb-2 container">
         <div class="rounded-3 overflow-hidden">
             <table id=secteur-table class="table table-striped table-hover border caption-top" data-toggle='table'
                 data-pagination="false" data-search-align="right" data-search="true" data-toolbar="#toolbar"

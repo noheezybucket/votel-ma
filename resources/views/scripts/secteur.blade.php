@@ -79,8 +79,10 @@
                 $('#create-secteur-btn').html(
                     'Créer le secteur <x-fas-plus style="width:20px" />')
             }).catch(error => {
+
                 console.log(error)
                 if (error.status === 500) {
+                    $("#success").html('');
                     $("#error").html(
                         '<span  class="alert alert-danger d-block">Vous ne pouvez pas utiliser la même couleur/label deux fois</span>'
                     );

@@ -8,7 +8,7 @@
             href="{{ route('admin.create-program') }}"> Nouveau
             programme <x-fas-plus style="width:20px" /></a>
     </div>
-    <div class="table-responsive mx-auto bg-primary rounded-3 px-2 pb-2">
+    <div class="table-responsive mx-auto bg-primary rounded-3 px-2 pb-2 container">
         <div class="rounded-3 overflow-hidden">
             <table id=program-table class="table table-striped table-hover border caption-top" data-toggle='table'
                 data-pagination="false" data-search-align="right" data-search="true" data-toolbar="#toolbar"
@@ -17,7 +17,7 @@
                 <thead align="center">
                     <th data-field="id" data-sortable="true">#</th>
                     <th data-field="candidat">Candidat</th>
-                    <th data-field="nom">Nom & Prenom</th>
+                    <th data-field="nom" data-sortable="true">Nom & Prenom</th>
                     <th data-field="titre" data-sortable='true'>Titre</th>
                     <th data-field="contenu" data-sortable='true'>Contenu</th>
                     <th data-field="document" data-sortable='true'>Document</th>
@@ -38,15 +38,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
-                    <form class="w-100">
-                        <div class="flex justify-content-center">
-                            <img src="" alt="" id="photo" style="max-width: 100px"
-                                class="rounded-3 mb-3">
-                        </div>
+                    <div class="w-100 d-flex justify-content-center align-items-center flex-column gap-3">
+                        <img src="" alt="" id="photo" style=" width:250px; height:250px; display:block"
+                            class="rounded-circle object-fit-cover">
                         <div class="mb-3">
                             <div id="document"></div>
                         </div>
+                    </div>
+                    <form class="w-100">
+
                         <div class="mb-3">
                             <label for="candidat" class="col-form-label">Candidat</label>
                             <input type="text" class="form-control" id="candidat" name="candidat" disabled>
@@ -77,6 +77,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="w-100 d-flex justify-content-center align-items-center flex-column gap-3">
+                        <img src="" alt="" id="update-photo"
+                            style=" width:250px; height:250px; display:block" class="rounded-circle object-fit-cover">
+                    </div>
                     <div class="d-flex w-100 gap-3  ">
                         <form class="w-100" id="update-program" enctype="multipart/form-data">
                             <div id="update-error">
