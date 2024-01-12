@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CandidatController;
+use App\Http\Controllers\ProgrammeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +32,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::view('create-candidate', 'candidate.create')->name('create-candidate');
     // programmes views
     Route::view('list-programs', 'program.list')->name('list-programs');
-    Route::view('create-program', 'program.create')->name('create-program');
+    Route::get('create-program', [ProgrammeController::class, 'programDropdowns'])->name('create-program');
     // secteurs views
     Route::view('list-secteurs', 'secteur.list')->name('list-secteurs');
     Route::view('create-secteur', 'secteur.create')->name('create-secteur');

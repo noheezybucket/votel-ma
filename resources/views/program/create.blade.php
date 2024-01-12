@@ -20,13 +20,25 @@
             <input type="text" id="titre" name="titre" class="form-control">
         </div>
 
-        <div class="form-group">
+        <div class="form-group mt-2">
             <label for="candidat_id" class="form-label">Candidat</label>
             <select id="candidat_id" name="candidat_id" class="form-select" aria-label="Default select example">
-                <option value="1">Ali</option>
-                <option value="2">warning</option>
-                <option value="3">info</option>
-                <option value="4">red</option>
+                <option selected>Selectionnez un candidat</option>
+                @foreach ($candidats as $candidat)
+                    <option value="{{ $candidat->id }}">{{ $candidat->id }}. {{ $candidat->prenom }} {{ $candidat->nom }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="form-group mt-2">
+            <label for="secteur_id" class="form-label">Secteur</label>
+            <select id="secteur_id" name="secteur_id" class="form-select" aria-label="Default select example">
+                <option selected>Selectionnez un secteur</option>
+                @foreach ($secteurs as $secteur)
+                    <option value="{{ $secteur->id }}">{{ $secteur->id }}. {{ $secteur->label }}
+                    </option>
+                @endforeach
             </select>
         </div>
 

@@ -15,8 +15,9 @@
                 data-locale="fr-FR">
 
                 <thead align="center">
-                    <th data-field="candidat">Candidat</th>
                     <th data-field="id" data-sortable="true">#</th>
+                    <th data-field="candidat">Candidat</th>
+                    <th data-field="nom">Nom & Prenom</th>
                     <th data-field="titre" data-sortable='true'>Titre</th>
                     <th data-field="contenu" data-sortable='true'>Contenu</th>
                     <th data-field="document" data-sortable='true'>Document</th>
@@ -39,8 +40,16 @@
                 <div class="modal-body">
 
                     <form class="w-100">
+                        <div class="flex justify-content-center">
+                            <img src="" alt="" id="photo" style="max-width: 100px"
+                                class="rounded-3 mb-3">
+                        </div>
                         <div class="mb-3">
                             <div id="document"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="candidat" class="col-form-label">Candidat</label>
+                            <input type="text" class="form-control" id="candidat" name="candidat" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="titre" class="col-form-label">Titre</label>
@@ -83,6 +92,15 @@
                                     <input type="hidden" name="update-id" id="update-id">
                                     <label for="update-titre" class="col-form-label">Titre</label>
                                     <input type="text" class="form-control" id="update-titre" name="update-titre">
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="update-candidat" class="form-label">Candidat</label>
+                                    <select id="update-candidat" name="update-candidat" class="form-select"
+                                        aria-label="Default select example">
+                                        <option selected>Assigner un nouveau candidat</option>
+
+
+                                    </select>
                                 </div>
                                 <div>
                                     <label for="update-contenu" class="col-form-label">Contenu</label>

@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidat;
 use App\Models\Programme;
+use App\Models\Secteur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ProgrammeController extends Controller
 {
+
     // list programs
     function index()
     {
         try {
+            $programs = Programme::all();
+            $programs_candidates = [];
+
+            foreach ($programs as $program) {
+                $programs_candidates[] = ['program' => $program, 'candidat' => $program->candidat()->get()];
+            }
+
             return response()->json([
                 'status' => 'success',
-                'programs' => Programme::all()
+                'programs' => $programs_candidates,
             ]);
         } catch (\Throwable $e) {
             return response()->json([
@@ -36,7 +46,6 @@ class ProgrammeController extends Controller
                     'contenu' => 'required|string',
                     'document' => 'required|file|mimes:pdf,doc,docx|max:2048',
                     'candidat_id' => 'required|exists:candidats,id',
-
                 ]
             );
 
@@ -77,6 +86,8 @@ class ProgrammeController extends Controller
             $validated = Validator::make($request->all(), [
                 'titre' => 'required|string',
                 'contenu' => 'required|string',
+                'candidat_id' => 'required|exists:candidats,id',
+
                 // 'document' => 'required|file|mimes:pdf,doc,docx|max:2048',
             ]);
 
@@ -143,5 +154,17 @@ class ProgrammeController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
+    }
+
+    /**
+     * Create programme candidat/secteur dropdown
+     */
+
+    function programDropdowns()
+    {
+        $secteurs = Secteur::all();
+        $candidat = Candidat::all();
+
+        return view('program/create', ['secteurs' => $secteurs, 'candidats' => $candidat]);
     }
 }

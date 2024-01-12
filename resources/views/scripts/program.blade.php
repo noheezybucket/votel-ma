@@ -4,18 +4,20 @@
             let rows = [];
             data.forEach(elt => {
                 rows.push({
-                    id: elt.id,
-                    titre: elt.titre,
-                    contenu: elt.contenu,
-                    document: `<a href="{{ asset('uploads/documents/${elt.document}') }}" class='btn btn-primary'>Télécharger <x-fas-download style="width:20px" /></a>`,
+                    candidat: `<img src="{{ asset('uploads/images/${elt.candidat[0].photo}') }}"  alt="" width="50px" class="rounded">`,
+                    nom: elt.candidat[0].prenom + ' ' + elt.candidat[0].nom,
+                    id: elt.program.id,
+                    titre: elt.program.titre,
+                    contenu: elt.program.contenu,
+                    document: `<a href="{{ asset('uploads/documents/${elt.program.document}') }}" class='btn btn-primary'>Télécharger <x-fas-download style="width:20px" /></a>`,
                     buttons: `
                     <div class="d-flex gap-2">
 
                     <button type="button" class="btn btn-outline-primary px-2 py-1" data-bs-toggle="modal" data-bs-target="#view" data-bs-program='${JSON.stringify(elt)}'><x-far-eye style="width:20px" /></button>
 
-                    <button type="button" class="btn btn-outline-warning px-2 py-1" data-bs-toggle="modal" data-bs-target="#update" data-bs-program='${JSON.stringify(elt)}'><x-far-pen-to-square style="width:20px"/></button>
+                    <button type="button" class="btn btn-outline-warning px-2 py-1" data-bs-toggle="modal" data-bs-target="#update" data-bs-program='${JSON.stringify(elt)}' data-bs-all='${JSON.stringify(data)}'><x-far-pen-to-square style="width:20px"/></button>
                     
-                    <button type="button" class="btn btn-outline-danger px-2 py-1" data-bs-toggle="modal" data-bs-target="#delete" data-bs-id='${JSON.stringify(elt.id)}' ><x-far-trash-can style="width:20px" /></button>
+                    <button type="button" class="btn btn-outline-danger px-2 py-1" data-bs-toggle="modal" data-bs-target="#delete" data-bs-id='${JSON.stringify(elt.program.id)}' ><x-far-trash-can style="width:20px" /></button>
                     </div>
                     `
                 })
@@ -36,7 +38,6 @@
                 res.programs.forEach(program => {
                     programs.push(program)
                 });
-                console.log(programs)
 
                 loadTable(res.programs)
 
@@ -103,11 +104,12 @@
             const data = {
                 titre: $("#update-titre").val(),
                 contenu: $("#update-contenu").val(),
+                candidat_id: $("#update-candidat").val(),
                 // document: $("#update-document")[0].files[0],
             };
 
             const update_id = $("#update-id").val()
-
+            console.log($("#update-candidat").val())
 
             $.ajax({
                 url: "http://127.0.0.1:8000/api/program/update/" + update_id,
@@ -182,20 +184,36 @@
                 var button = event.relatedTarget;
                 var program = JSON.parse(button.getAttribute('data-bs-program'));
 
-                $("#titre").val(program.titre);
-                $("#contenu").val(program.contenu);
+                $("#titre").val(program.program.titre);
+                $("#contenu").val(program.program.contenu);
                 $("#document").html(
                     `<a href="{{ asset('uploads/documents/${program.document}') }}" class='btn btn-primary'>Télécharger le document <x-fas-download style="width:20px" /></a>`
                 );
+                $("#photo").attr('src',
+                    `http://localhost:8000/uploads/images/${program.candidat[0].photo}`)
+
+                $("#candidat").val(program.candidat[0].nom + ' ' + program.candidat[0].prenom);
+
+
             })
 
             $("#update").on('show.bs.modal', event => {
                 var button = event.relatedTarget;
                 var program = JSON.parse(button.getAttribute('data-bs-program'))
+                var data = JSON.parse(button.getAttribute('data-bs-all'))
 
-                $("#update-id").val(program.id)
-                $("#update-titre").val(program.titre);
-                $("#update-contenu").val(program.contenu);
+                $("#update-id").val(program.program.id)
+                $("#update-titre").val(program.program.titre);
+                $("#update-contenu").val(program.program.contenu);
+
+                const selectElement = $("#update-candidat");
+
+                data.forEach(program => {
+
+                    selectElement.append(
+                        `<option value="${program.program.candidat_id}">${program.candidat[0].prenom} ${program.candidat[0].nom}</option>`
+                    );
+                });
             })
 
             $("#delete").on('show.bs.modal', event => {
