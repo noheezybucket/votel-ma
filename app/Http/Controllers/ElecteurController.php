@@ -14,5 +14,8 @@ class ElecteurController extends Controller
 
     function show($id)
     {
+        $candidate = Candidat::with('programmes')->find($id);
+
+        return view('electeur/view-candidate', ['candidat' => $candidate]);
     }
 }

@@ -45,6 +45,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Route::prefix('electeur')->name('electeur.')->group(function () {
     Route::get('candidates', [ElecteurController::class, 'index'])->name('candidates');
+    Route::get('candidates/{id}', [ElecteurController::class, 'show'])->name('view-candidate');
+
     Route::view('statistics', 'electeur.stats')->name('stats');
     Route::view('programs', 'electeur.programs')->name('programs');
 });

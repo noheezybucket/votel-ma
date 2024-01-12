@@ -1,23 +1,25 @@
 @extends('base')
 
-@section('title', 'Candidats')
+@section('title', 'Liste des candidats')
 
 @section('content')
-    <div class=" container">
+    <div class="d-flex justify-content-between container">
         @foreach ($candidats as $candidat)
-            <div class="card mb-3" style="max-width: 540px; margin:0 auto">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="{{ asset('/uploads/images/' . $candidat->photo) }}" class="img-fluid rounded-start"
-                            alt="...">
+            <div class="card" style="width: 20rem;">
+                <img src="{{ asset('/uploads/images/' . $candidat->photo) }}" class="card-img-top object-fit-cover"
+                    alt="..." height="250px">
+                <div class="card-body">
+                    <div class="my-3">
+                        <span class="rounded-1 bg-info text-white p-1">Santé</span>
+                        <span class="rounded-1 bg-primary text-white p-1">Agriculture</span>
+                        <span class="rounded-1 bg-danger text-white p-1">Pêche</span>
+
                     </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $candidat->prenom }} {{ $candidat->nom }}</h5>
-                            <p class="card-text">{{ $candidat->biographie }}</p>
-                            <p class="card-text"><small class="text-body-secondary">{{ $candidat->updatedAt }}</small></p>
-                        </div>
-                    </div>
+                    <h5 class="card-title">{{ $candidat->prenom }} {{ $candidat->nom }}</h5>
+                    <p class="card-text">{{ $candidat->biographie }}</p>
+                    <a href="{{ route('electeur.view-candidate', ['id' => $candidat->id]) }}" class="btn btn-primary">Voir
+                        plus de
+                        détail</a>
                 </div>
             </div>
         @endforeach
