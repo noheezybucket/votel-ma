@@ -47,7 +47,7 @@
                     @if (request()->is('admin/*'))
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page"
-                                href="{{ route('admin.dashboard') }}">Dashboard</a>
+                                href="{{ route('electeur.stats') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page"
@@ -79,6 +79,8 @@
                                 href="{{ route('electeur.programs') }}">Programmes</a>
                         </li>
                     @endif
+
+
                     {{-- 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -99,6 +101,10 @@
 
                 </ul>
             </div>
+        </div>
+        <div class="d-flex gap-3 w-25">
+            <a href="{{ route('auth.login') }}" class="btn btn-outline-light d-block">Se connecter</a>
+            <a href="{{ route('auth.register') }}" class="btn btn-light d-block">S'inscrire</a>
         </div>
     </nav>
     <div class="p-2">

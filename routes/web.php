@@ -30,7 +30,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
 // admin routes
 Route::prefix('admin')->name('admin.')->group(function () {
     // dashboard
-    Route::view('dashboard', 'admin.dashboard')->name('dashboard');
+    Route::get('dashboard', [StatisticsController::class, 'index'])->name('dashboard');
 
     // candidates views
     Route::view('list-candidates', 'candidate.list')->name('list-candidate');
