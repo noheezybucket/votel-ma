@@ -3,6 +3,7 @@
 use App\Http\Controllers\CandidatController;
 use App\Http\Controllers\ElecteurController;
 use App\Http\Controllers\ProgrammeController;
+use App\Http\Controllers\StatisticsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,5 +50,5 @@ Route::prefix('electeur')->name('electeur.')->group(function () {
     Route::get('programs', [ElecteurController::class, 'programs_list'])->name('programs');
     Route::get('programs/{id}', [ElecteurController::class, 'view_program'])->name('view-program');
 
-    Route::view('statistics', 'electeur.stats')->name('stats');
+    Route::get('statistics', [StatisticsController::class, 'index'])->name('stats');
 });

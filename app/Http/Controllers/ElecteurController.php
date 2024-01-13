@@ -31,4 +31,13 @@ class ElecteurController extends Controller
 
         return view('electeur/view-program', ['programme' => $program]);
     }
+
+    function stats()
+    {
+        $candidats = Candidat::all();
+
+        dd($candidats);
+
+        return view('/electeur/stats', compact('candidat'));
+    }
 }
