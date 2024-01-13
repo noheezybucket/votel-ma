@@ -44,9 +44,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 Route::prefix('electeur')->name('electeur.')->group(function () {
-    Route::get('candidates', [ElecteurController::class, 'index'])->name('candidates');
-    Route::get('candidates/{id}', [ElecteurController::class, 'show'])->name('view-candidate');
+    Route::get('candidates', [ElecteurController::class, 'candidates_list'])->name('candidates');
+    Route::get('candidates/{id}', [ElecteurController::class, 'view_candidate'])->name('view-candidate');
+    Route::get('programs', [ElecteurController::class, 'programs_list'])->name('programs');
+    Route::get('programs/{id}', [ElecteurController::class, 'view_program'])->name('view-program');
 
     Route::view('statistics', 'electeur.stats')->name('stats');
-    Route::view('programs', 'electeur.programs')->name('programs');
 });

@@ -7,7 +7,6 @@
         <div>
             <div class="row">
 
-                <hr>
                 <div class="d-flex justify-content-between align-items-center">
                     <h3>Informations du candidat</h3>
                     @if ($candidat->validate === 0)
@@ -20,8 +19,8 @@
                 </div>
                 <hr>
                 <div class="w-25">
-                    <img src="{{ asset('/uploads/images/' . $candidat->photo) }}" class="rounded-3 object-fit-cover"
-                        height="220px" width="100%" alt="...">
+                    <img src="{{ asset('/uploads/images/' . $candidat->photo) }}" class="rounded-circle object-fit-cover"
+                        height="200px" width="200px" alt="...">
                 </div>
                 <div class="w-75">
                     <p class="fs-5">{{ $candidat->prenom }} {{ $candidat->nom }} </p>
@@ -29,7 +28,6 @@
                 </div>
                 <p class="text-justify mt-2"> {{ $candidat->biographie }} </p>
             </div>
-            <hr>
 
             <h3>Programmes</h3>
             <hr>
@@ -46,7 +44,10 @@
                                 <h5 class="card-title">{{ $programme->titre }}</h5>
                                 <p class="card-text">{{ $programme->contenu }}</p>
                             </div>
-                            <a href="" class="btn btn-outline-light m-2">Télécharger le document <x-fas-download
+                            <a href="{{ route('electeur.view-program', ['id' => $programme->id]) }}"
+                                class="btn btn-light m-2">Voir les détails <x-fas-plus style="width:20px" /> </a>
+                            <a href="{{ asset('/uploads/documents' . $programme->document) }}"
+                                class="btn btn-outline-light m-2">Télécharger le document <x-fas-download
                                     style="width:20px" /></a>
 
                         </div>
