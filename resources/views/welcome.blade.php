@@ -2,6 +2,7 @@
 @section('title', 'Accueil')
 
 @section('content')
+    @include('components.basic-menu')
     <main style='height:80vh' class=" d-flex align-items-center justify-content-center flex-column">
         <h1>Bienvenue dans ParrainApp</h1>
         <p>L'app qui vous permet de parrainez votre candidat en quelques clics !</p>

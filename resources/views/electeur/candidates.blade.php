@@ -3,10 +3,11 @@
 @section('title', 'Liste des candidats')
 
 @section('content')
+    @include('components.electeur-menu')
+    <div>
+
+    </div>
     <div class=" container">
-        <hr>
-        <h3 class="text-center">Liste des candidats</h3>
-        <hr>
         @foreach ($candidats as $candidat)
             <div class="card mb-3" style="">
                 <div class="row no-gutters">

@@ -17,9 +17,14 @@ class ProgrammeController extends Controller
         try {
             $programs = Programme::all();
             $programs_candidates = [];
+            $programs_secteurs = [];
 
             foreach ($programs as $program) {
-                $programs_candidates[] = ['program' => $program, 'candidat' => $program->candidat()->get()];
+                $programs_candidates[] = [
+                    'program' => $program,
+                    'candidat' => $program->candidat()->get(),
+                    "secteur" => $program->secteur()->get()
+                ];
             }
 
             return response()->json([
@@ -46,6 +51,7 @@ class ProgrammeController extends Controller
                     'contenu' => 'required|string',
                     'document' => 'required|file|mimes:pdf,doc,docx|max:2048',
                     'candidat_id' => 'required|exists:candidats,id',
+                    'secteur_id' => 'exists:secteurs,id'
                 ]
             );
 
@@ -65,6 +71,7 @@ class ProgrammeController extends Controller
             $program->contenu = $request->input('contenu');
             $program->document = $fileName;
             $program->candidat_id = $request->candidat_id;
+            $program->secteur_id = $request->secteur_id;
 
             $program->save();
 
@@ -86,7 +93,8 @@ class ProgrammeController extends Controller
             $validated = Validator::make($request->all(), [
                 'titre' => 'required|string',
                 'contenu' => 'required|string',
-                'candidat_id' => 'required|exists:candidats,id',
+                'candidat_id' => 'nullable|exists:candidats,id',
+                'secteur_id' => 'nullable|exists:secteurs,id',
 
                 // 'document' => 'required|file|mimes:pdf,doc,docx|max:2048',
             ]);

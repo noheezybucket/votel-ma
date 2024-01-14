@@ -1,6 +1,7 @@
 @section('scripts')
     <script>
         const loadTable = (data) => {
+            console.log(data)
             let rows = [];
             data.forEach(elt => {
                 rows.push({
@@ -8,8 +9,16 @@
                     nom: elt.candidat[0].prenom + ' ' + elt.candidat[0].nom,
                     id: elt.program.id,
                     titre: elt.program.titre,
-                    contenu: elt.program.contenu.substring(0, 50) + '...',
-                    document: `<a href="{{ asset('uploads/documents/${elt.program.document}') }}" class='btn btn-primary'>Télécharger <x-fas-download style="width:20px" /></a>`,
+                    secteur: `<div class='bg-${elt.secteur[0].couleur} rounded-3 w-100 py-2 text-white'>${elt.secteur[0].label}</div>`,
+                    // contenu: elt.program.contenu.substring(0, 50) + '...',
+                    document: `<a href="{{ asset('uploads/documents/${elt.program.document}') }}" class='btn btn-primary'>Lire <x-fas-download style="width:20px" /></a>`,
+                    maj: elt.program.updated_at === elt.program.created_at ?
+                        "Créée le " + elt.program.updated_at.split('T')[0]
+                        .replaceAll('-', '/') + ' à ' +
+                        elt.program.updated_at.split('T')[1].split('.')[0] : "Modifié le " +
+                        elt.program.updated_at.split('T')[0]
+                        .replaceAll('-', '/') + ' à ' +
+                        elt.program.updated_at.split('T')[1].split('.')[0],
                     buttons: `
                     <div class="d-flex gap-2">
 
@@ -105,11 +114,12 @@
                 titre: $("#update-titre").val(),
                 contenu: $("#update-contenu").val(),
                 candidat_id: $("#update-candidat").val(),
+                secteur_id: $("#update-secteur").val(),
+
                 // document: $("#update-document")[0].files[0],
             };
 
             const update_id = $("#update-id").val()
-            console.log($("#update-candidat").val())
 
             $.ajax({
                 url: "http://127.0.0.1:8000/api/program/update/" + update_id,
@@ -127,9 +137,6 @@
                     getPrograms()
                     $("#update").modal('hide')
                     $("#update-error").html("");
-                    $("#update-success").html(
-                        '<span  class="alert alert-success alert-dismissible d-block">' + response.message +
-                        '</span>');
                 }
 
                 if (response.status === 'error') {
@@ -193,7 +200,9 @@
                     `http://localhost:8000/uploads/images/${program.candidat[0].photo}`)
 
                 $("#candidat").val(program.candidat[0].nom + ' ' + program.candidat[0].prenom);
-
+                $("#secteur").html(
+                    `<div class='bg-${program.secteur[0].couleur} text-white h-100 rounded-3 px-3 py-2'>${program.secteur[0].label}</div>`
+                )
 
             })
 
@@ -208,14 +217,26 @@
                 $("#update-photo").attr('src',
                     `http://localhost:8000/uploads/images/${program.candidat[0].photo}`)
 
-                const selectElement = $("#update-candidat");
+                $("#update-candidat").empty();
+                $("#update-secteur").empty();
+
+                $("#update-candidat").append("<option selected>Assigner un nouveau candidat</option>")
+                $("#update-secteur").append("<option selected>Assigner un nouveau secteur</option>")
 
                 data.forEach(program => {
 
-                    selectElement.append(
+                    $("#update-candidat").append(
                         `<option value="${program.program.candidat_id}">${program.candidat[0].prenom} ${program.candidat[0].nom}</option>`
                     );
+
+                    $("#update-secteur").append(
+                        `<option value="${program.program.secteur_id}">${program.secteur[0].label}</option>`
+                    );
                 });
+            })
+
+            $("#update").on('show.bs.modal', event => {
+                $("#update-error").html("")
             })
 
             $("#delete").on('show.bs.modal', event => {

@@ -2,7 +2,9 @@
 
 @section('title', 'Vue unique')
 
+
 @section('content')
+@include('components.electeur-menu')
     <div class="container">
         <div>
             <div class="row">

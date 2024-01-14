@@ -1,9 +1,10 @@
 @section('scripts')
     <script>
         const loadTable = (data) => {
+
             let rows = []
             data.forEach(elt => {
-                console.log(elt.photo)
+
                 rows.push({
                     id: elt.id,
                     nom: elt.nom,
@@ -14,7 +15,12 @@
                     biographie: elt.biographie.substring(0, 50) + '...',
                     partie: elt.partie,
                     valider: elt.validate,
-                    maj: elt.updated_at.split('T')[0].replaceAll('-', '/') + ' à ' +
+                    maj: elt.updated_at === elt.created_at ?
+                        "Créée le " + elt.updated_at.split('T')[0]
+                        .replaceAll('-', '/') + ' à ' +
+                        elt.updated_at.split('T')[1].split('.')[0] : "Modifié le " +
+                        elt.updated_at.split('T')[0]
+                        .replaceAll('-', '/') + ' à ' +
                         elt.updated_at.split('T')[1].split('.')[0],
                     buttons: `
                     <div class="d-flex justify-content-center gap-2">
@@ -70,12 +76,12 @@
                 }
                 $('#create-candidate-btn').prop('disabled', false)
                 $('#create-candidate-btn').html(
-                    'Créer le candidat <x-far-square-plus style="width:20px" />')
+                    'Créer le candidat <x-fas-plus style="width:20px" />')
             }).catch(err => {
                 console.log(err)
                 $('#create-candidate-btn').prop('disabled', false)
                 $('#create-candidate-btn').html(
-                    'Créer le candidat <x-far-square-plus style="width:20px" />')
+                    'Créer le candidat <x-fas-plus style="width:20px" />')
 
             })
         }
@@ -109,6 +115,7 @@
                 prenom: $("#update-prenom").val(),
                 partie: $("#update-partie").val(),
                 biographie: $("#update-biographie").val(),
+
             }
 
             let candidate_id = $("#update-id").val();

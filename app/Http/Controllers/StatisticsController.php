@@ -26,6 +26,6 @@ class StatisticsController extends Controller
         $chart2->dataset('My dataset 2', 'doughnut', $programmes->values())->backgroundColor(['#F42B03', '#1B2CC1', '#1EFFBC']);
 
 
-        return view('/electeur/stats', compact('chart1', 'chart2'));
+        return view('/stats', compact('chart1', 'chart2'));
     }
 }

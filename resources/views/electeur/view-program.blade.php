@@ -1,8 +1,10 @@
 @extends('base')
 
-@section('title', 'Programme')
+@section('title', '{{ $programme->titre }}')
+
 
 @section('content')
+    @include('components.electeur-menu')
     <div class="container">
         <div>
             <div>

@@ -2,7 +2,9 @@
 
 @section('title', 'Programmes')
 
+
 @section('content')
+    @include('components.electeur-menu')
     <div class="container">
 
         <hr>

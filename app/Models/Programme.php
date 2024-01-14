@@ -15,4 +15,9 @@ class Programme extends Model
     {
         return $this->belongsTo(Candidat::class);
     }
+
+    public function secteur()
+    {
+        return $this->belongsTo(Secteur::class);
+    }
 }

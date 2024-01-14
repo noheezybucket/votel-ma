@@ -6,13 +6,14 @@
 @endsection
 
 @section('auth-form')
-    <form id="login-form" class="shadow-sm border rounded p-3 bg-light " style="max-width: 500px; width:100%">
+    <form id="login-form" class="shadow-sm border rounded p-3 " style="max-width: 500px; width:100%">
         <div
             class="d-flex justify-content-center align-items-center text-2xl mb-2  rounded p-2 bg-primary text-light fw-bold">
             <x-far-circle-user style="width: 50px; margin-right:5px" />
             <span class="fs-3">Inscription</span>
         </div>
         @csrf
+        <input type="hidden" name="role" value="">
         <div class=" mb-2">
             <label for="fullname" class="form-label">Nom Complet</label>
             <input type="text" id="fullname" name="fullname" class="form-control">
@@ -25,7 +26,7 @@
             <label for="password" class="form-label">Mot de passe</label>
             <input type="password" id="password" name="password" class="form-control">
         </div>
-        <div class=" mb-2">
+        <div class=" mb-4">
             <label for="confirm-pass" class="form-label">Confirmer le mot de passe</label>
             <input type="password" id="confirm-pass" name="confirm-pass" class="form-control">
         </div>

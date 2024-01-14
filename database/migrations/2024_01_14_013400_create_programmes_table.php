@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('candidat_id')->unsigned();
-            // $table->bigInteger('secteur_id')->unsigned();
+            $table->bigInteger('secteur_id')->unsigned();
             $table->string('titre');
             $table->text('contenu');
             $table->string('document');
             $table->timestamps();
 
             $table->foreign('candidat_id')->references('id')->on('candidats')->onDelete('cascade');
-            // $table->foreign('secteur_id')->references('id')->on('secteurs')->onDelete('cascade');
+            $table->foreign('secteur_id')->references('id')->on('secteurs')->onDelete('cascade');
         });
     }
 

@@ -87,6 +87,8 @@ class CandidatController extends Controller
                 'prenom' => 'required',
                 'partie' => 'required',
                 'biographie' => 'required',
+                'photo' => 'nullable|file|mimes:jpg,jpeg,png,webp|max:2048'
+
             ]);
 
 
@@ -122,7 +124,15 @@ class CandidatController extends Controller
     {
         try {
             $candidat = Candidat::find($id);
+
+            $document_path = public_path('uploads/documents/' . $candidat->photo);
+
+            if (file_exists($document_path)) {
+                unlink($document_path);
+            }
+
             $candidat->delete();
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Utilisateur supprimé avec succès',
