@@ -8,7 +8,7 @@
                     nom: elt.candidat[0].prenom + ' ' + elt.candidat[0].nom,
                     id: elt.program.id,
                     titre: elt.program.titre,
-                    contenu: elt.program.contenu,
+                    contenu: elt.program.contenu.substring(0, 50) + '...',
                     document: `<a href="{{ asset('uploads/documents/${elt.program.document}') }}" class='btn btn-primary'>Télécharger <x-fas-download style="width:20px" /></a>`,
                     buttons: `
                     <div class="d-flex gap-2">

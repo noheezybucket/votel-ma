@@ -33,14 +33,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', [StatisticsController::class, 'index'])->name('dashboard');
 
     // candidates views
-    Route::view('list-candidates', 'candidate.list')->name('list-candidate');
-    Route::view('create-candidate', 'candidate.create')->name('create-candidate');
+    Route::view('list-candidates', 'admin.candidate.list')->name('list-candidate');
+    Route::view('create-candidate', 'admin.candidate.create')->name('create-candidate');
     // programmes views
-    Route::view('list-programs', 'program.list')->name('list-programs');
+    Route::view('list-programs', 'admin.program.list')->name('list-programs');
     Route::get('create-program', [ProgrammeController::class, 'programDropdowns'])->name('create-program');
     // secteurs views
-    Route::view('list-secteurs', 'secteur.list')->name('list-secteurs');
-    Route::view('create-secteur', 'secteur.create')->name('create-secteur');
+    Route::view('list-secteurs', 'admin.secteur.list')->name('list-secteurs');
+    Route::view('create-secteur', 'admin.secteur.create')->name('create-secteur');
 });
 
 

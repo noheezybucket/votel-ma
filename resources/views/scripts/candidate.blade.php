@@ -11,7 +11,7 @@
                     photo: elt.photo != null ?
                         `<img src="{{ asset('uploads/images/${elt.photo}') }}"  alt="" width="70px" class="rounded">` :
                         '<div class="bg-primary rounded text-white py-4 d-flex justify-content-center"><x-far-image style="width:50px"/></div>',
-                    biographie: elt.biographie.substring(0, 150) + '...',
+                    biographie: elt.biographie.substring(0, 50) + '...',
                     partie: elt.partie,
                     valider: elt.validate,
                     maj: elt.updated_at.split('T')[0].replaceAll('-', '/') + ' à ' +

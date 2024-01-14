@@ -165,6 +165,6 @@ class ProgrammeController extends Controller
         $secteurs = Secteur::all();
         $candidat = Candidat::all();
 
-        return view('program/create', ['secteurs' => $secteurs, 'candidats' => $candidat]);
+        return view('admin/program/create', ['secteurs' => $secteurs, 'candidats' => $candidat]);
     }
 }
