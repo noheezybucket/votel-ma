@@ -29,7 +29,7 @@
          </div>
      </div>
      <div class="d-flex gap-3 w-25">
-         <a href="{{ route('auth.login') }}" class="btn btn-outline-light d-block">Se connecter</a>
-         <a href="{{ route('auth.register') }}" class="btn btn-light d-block">S'inscrire</a>
+         <a href="{{ route('auth.login-form') }}" class="btn btn-outline-light d-block">Se connecter</a>
+         <a href="{{ route('auth.register-form') }}" class="btn btn-light d-block">S'inscrire</a>
      </div>
  </div>

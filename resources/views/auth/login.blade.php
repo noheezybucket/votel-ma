@@ -15,8 +15,8 @@
         </div>
         @csrf
         <div class=" mb-2">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" name="email" class="form-control">
+            <label for="cni" class="form-label">Numéro CNI</label>
+            <input type="text" id="cni" name="cni" class="form-control">
         </div>
         <div class=" mb-2">
             <label for="password" class="form-label">Mot de passe</label>
@@ -36,7 +36,7 @@
 
         <div>
             <p class="mt-2">Vous n'avez pas de compte? <br>
-                <a href="{{ route('auth.register') }}">Inscrivez-vous facilement ici</a>
+                <a href="{{ route('auth.register-form') }}">Inscrivez-vous facilement ici</a>
             </p>
         </div>
     </form>

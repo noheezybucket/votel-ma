@@ -23,8 +23,8 @@ Route::get('/', function () {
 
 // auth
 Route::prefix('auth')->name('auth.')->group(function () {
-    Route::view('login', 'auth.login')->name('login');
-    Route::view('register', 'auth.register')->name('register');
+    Route::view('login', 'auth.login')->name('login-form');
+    Route::view('register', 'auth.register')->name('register-form');
 });
 
 // admin routes
