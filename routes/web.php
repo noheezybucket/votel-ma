@@ -28,7 +28,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
 });
 
 // admin routes
-Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
     // dashboard
     Route::get('dashboard', [StatisticsController::class, 'index'])->name('dashboard');
     // candidates views
@@ -43,7 +43,7 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
 });
 
 
-Route::prefix('electeur')->middleware('auth')->name('electeur.')->group(function () {
+Route::prefix('electeur')->name('electeur.')->group(function () {
     Route::get('candidates', [ElecteurController::class, 'candidates_list'])->name('candidates');
     Route::get('candidates/{id}', [ElecteurController::class, 'view_candidate'])->name('view-candidate');
     Route::get('programs', [ElecteurController::class, 'programs_list'])->name('programs');

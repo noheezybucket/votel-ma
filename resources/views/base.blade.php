@@ -143,6 +143,25 @@
         }
     </style>
 
+    <script>
+        let cookies = document.cookie.split('; ')
+        let jwt_cookie = false
+        let user_id = false
+        let user_role = false
+
+
+        for (let i = 0; i < cookies.length; i++) {
+            if (cookies[i].includes('jwt-token'))
+                jwt_cookie = cookies[i]
+            if (cookies[i].includes('user-id'))
+                user_id = cookies[i]
+            if (cookies[i].includes('user-role'))
+                user_role = cookies[i]
+        }
+
+        if (!jwt_cookie)
+            document.location = "{{ route('auth.login-form') }}"
+    </script>
 
 </head>
 

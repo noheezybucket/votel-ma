@@ -2,7 +2,7 @@
     <a class="navbar-brand text-xl  rounded p-2  text-primary bg-light fw-bold d-flex justify-content-center gap-3"
         href="/">
         <x-far-envelope style="width: 30px; margin-left:5px" />
-        <span class="fs-4">ParrainApp</span>
+        <span class="fs-4">Votél Ma</span>
     </a>
     <hr class="text-white">
     <ul class="nav nav-pills flex-column gap-1 mb-auto h-100">
@@ -54,15 +54,15 @@
             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
             <x-fas-circle-user class="text-light" style="width: 22px; margin-right:10px" />
 
-            <strong>Administrateur</strong>
+            <strong id="username">Administrateur</strong>
         </a>
         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
             <li><a class="dropdown-item" href="#"><x-fas-gear style="width:15px" /> Paramètres</a></li>
             <li>
                 <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#"><x-fas-plug-circle-xmark style="width:18px" /> Se
-                    déconnecter</a></li>
+            <li><button class="dropdown-item" id="logout"><x-fas-plug-circle-xmark style="width:18px" /> Se
+                    déconnecter</button></li>
         </ul>
     </div>
 </div>

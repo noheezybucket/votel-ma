@@ -17,6 +17,9 @@
                 method: "POST",
                 data: data,
                 timeout: 5000,
+                headers: {
+                    contentType: 'application/json'
+                }
             }).then(response => {
                 $('#register-btn').prop('disabled', false)
                 $('#register-btn').html(
@@ -68,27 +71,34 @@
             $.ajax({
                 url: "{{ route('auth.login') }}",
                 method: 'POST',
+                timeout: 5000,
+                headers: {
+                    contentType: 'application/json',
+                },
                 data: data,
-                timeout: 5000
             }).then(response => {
+                console.log(response)
+
+                document.cookie = "jwt-token=" + response.authorization.token + "; path=/"
+                document.cookie = "user-role=" + response.user.role + "; path=/"
+                document.cookie = "user-id=" + response.user.id + "; path=/"
+
+
                 $('#login-btn').prop('disabled', false)
                 $('#login-btn').html(
                     'Se connecter <x-fas-arrow-right-to-bracket style="width: 20px; margin-right:5px" />')
 
-                console.log(response)
 
-                if (response.status === "success") {
-                    $("#error").html("")
-                    if (response.user.role === 'electeur') {
-                        window.location.href = "{{ route('electeur.stats') }}"
-                    }
+                $("#error").html("")
+                if (response.user.role === 'electeur') {
+                    window.location.href = "{{ route('electeur.stats') }}"
+                }
 
-                    if (response.user.role === "admin") {
-                        window.location.href = "{{ route('admin.dashboard') }}"
-
-                    }
+                if (response.user.role === "admin") {
+                    window.location.href = "{{ route('admin.dashboard') }}"
 
                 }
+
             }).catch(error => {
                 $('#login-btn').prop('disabled', false)
                 $('#login-btn').html(
@@ -107,6 +117,9 @@
 
                 console.log(error)
             })
+        }
+        const logout = () => {
+
         }
     </script>
     <script>

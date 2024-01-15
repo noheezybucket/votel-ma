@@ -1,5 +1,14 @@
 @section('scripts')
     <script>
+        // Route secure:
+        if (!role_user || role_user != 'admin') {
+            document.cookie = "jwt-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            document.cookie = "user-role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            document.cookie = "user-id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            window.location = "{{ route('auth.login-form') }}";
+        }
+    </script>
+    <script>
         const loadTable = (data) => {
             let rows = []
 
