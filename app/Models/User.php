@@ -13,6 +13,16 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function hasLiked($programId)
+    {
+        return $this->likes()->where('program_id', $programId)->where('like', 1)->exists();
+    }
+
+    public function hasDisliked($programId)
+    {
+        return $this->likes()->where('program_id', $programId)->where('dislike', 1)->exists();
+    }
+
     /**
      * The attributes that are mass assignable.
      *

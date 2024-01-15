@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bureau_de_votes', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('program_id');
+            $table->integer('like')->default(0);
+            $table->integer('dislike')->default(0);
             $table->timestamps();
+
+            // $table->unique(['user_id', 'program_id']); //user can like/dislike only once
         });
     }
 
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bureau_de_votes');
+        Schema::dropIfExists('likes');
     }
 };

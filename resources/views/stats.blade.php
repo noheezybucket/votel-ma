@@ -20,12 +20,12 @@
             <img src="{{ asset('/img/senegal.svg') }}" alt="" width="40px" class="rounded-3">
         </div>
 
-        <div class="d-flex">
-            <div class="w-50">
+        <div class="row row-cols-2">
+            <div class="col">
 
                 {!! $chart1->container() !!}
             </div>
-            <div class="w-50">
+            <div class="col">
                 {!! $chart2->container() !!}
 
             </div>

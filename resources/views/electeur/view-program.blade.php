@@ -2,7 +2,6 @@
 
 @section('title', 'Détails programme')
 
-
 @section('content')
     @include('components.electeur-menu')
     <div class="container">
@@ -26,18 +25,30 @@
 
         <h2 class="text-center">
             Titre - {{ $programme->titre }}
-
         </h2>
         <p>
             {{ $programme->contenu }}
         <div class="mb-3">
             </p>
 
+            <span class="btn btn-outline-primary like-button" title="likes" id="saveLikeDislike" data-type="like"
+                data-program="{{ $programme->id }}">
+                @if ($likes !== 0)
+                    {{ $likes }}
+                @endif
 
-            <a class="btn btn-primary " href="{{ asset('/uploads/documents/' . $programme->document) }}">J'aime
-                <x-far-thumbs-up style="width:20px" /></a>
-            <a class="btn btn-danger " href="{{ asset('/uploads/documents/' . $programme->document) }}">Je n'aime pas
-                <x-far-thumbs-down style="width:20px" /></a>
+                J'aime
+                <x-far-thumbs-up style="width:20px" />
+            </span>
+            <span class="btn btn-outline-danger dislike-button" title="dislikes" id="saveLikeDislike" data-type="dislike"
+                data-program="{{ $programme->id }}">
+                @if ($dislikes !== 0)
+                    {{ $dislikes }}
+                @endif
+
+                Je n'aime pas
+                <x-far-thumbs-down style="width:20px" />
+            </span>
         </div>
 
     </div>

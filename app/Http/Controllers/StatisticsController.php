@@ -13,13 +13,15 @@ class StatisticsController extends Controller
 {
     function index(Request $request)
     {
-        $candidats = Candidat::pluck('id', 'created_at');
+        $candidats = Candidat::pluck('validate', 'partie');
 
-        $programmes = Programme::pluck('id', 'candidat_id');
+        $programmes = Programme::pluck('candidat_id', 'titre');
+
+        // return $candidats;
 
         $chart1 = new CandidatesNumber;
         $chart1->labels($candidats->keys());
-        $chart1->dataset('My dataset 1', 'bar', $candidats->values())->backgroundColor(['#F42B03', '#1B2CC1', '#1EFFBC']);
+        $chart1->dataset('Validations', 'bar', $candidats->values())->backgroundColor(['#F42B03', '#1B2CC1', '#1EFFBC']);
 
         $chart2 = new CandidatesNumber;
         $chart2->labels($programmes->keys());

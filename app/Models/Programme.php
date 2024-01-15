@@ -20,4 +20,24 @@ class Programme extends Model
     {
         return $this->belongsTo(Secteur::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'program_id');
+    }
+
+    public function dislikes()
+    {
+        return $this->hasMany(Like::class, 'program_id');
+    }
+
+    public function likes_count()
+    {
+        return $this->likes()->sum('like');
+    }
+
+    public function dislikes_count()
+    {
+        return $this->likes()->sum('dislike');
+    }
 }

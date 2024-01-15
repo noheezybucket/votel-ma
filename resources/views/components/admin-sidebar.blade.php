@@ -1,5 +1,5 @@
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-primary h-100" style="width: 250px;">
-    <a class="navbar-brand text-xl  rounded p-2  text-primary bg-light fw-bold d-flex justify-content-center gap-3"
+<div class="d-flex flex-column flex-shrink-0 p-2 bg-primary h-100" style="width: 250px;">
+    <a class="navbar-brand text-xl  rounded p-3  text-primary bg-light fw-bold d-flex justify-content-center gap-3"
         href="/">
         <x-far-envelope style="width: 30px; margin-left:5px" />
         <span class="fs-4">Votél Ma</span>

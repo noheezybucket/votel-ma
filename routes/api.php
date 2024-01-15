@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CandidatController;
+use App\Http\Controllers\ElecteurController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SecteurController;
 use Illuminate\Http\Request;
@@ -40,6 +41,7 @@ Route::prefix('program')->name('program.')->group(function () {
     Route::post('create', [ProgrammeController::class, 'create'])->name('create');
     Route::put('update/{id}', [ProgrammeController::class, 'update'])->name('update');
     Route::delete('delete/{id}', [ProgrammeController::class, 'delete'])->name('delete');
+    Route::post('/like-dislike', [ElecteurController::class, 'likeDislike'])->name('likeDislike');
 });
 
 Route::prefix('secteur')->name('secteur.')->group(function () {

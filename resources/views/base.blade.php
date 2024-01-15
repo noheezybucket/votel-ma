@@ -209,9 +209,7 @@
             });
         });
     </script>
-    <script>
-        $("#username").html(username)
-    </script>
+
     {{-- charts --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
     {{-- jquery --}}
@@ -243,7 +241,7 @@
                 document.cookie = "jwt-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
                 document.cookie = "user-role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
                 document.cookie = "user-id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-                window.location = "{{ route('welcome-guest') }}";
+                window.location = "{{ route('auth.login-form') }}";
             }).catch(error => {
                 $("#logout").prop("disabled", false);
                 $("#logout").html(
