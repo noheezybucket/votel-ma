@@ -24,13 +24,30 @@
         *::before {
             font-family: 'Montserrat';
         }
+
+        .overlay {
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #212529;
+            /* semi-transparent white overlay */
+            z-index: 9999;
+        }
     </style>
 </head>
 
 <body>
     <div class="container-fluid">
+        <div id="loader" class="overlay">
+            <div class="spinner-border text-primary" role="status">
+            </div>
+        </div>
         <div class="row">
-
             <div class="col p-0 d-none d-lg-block position-relative" style="height: 100vh; overflow:hidden;">
                 <div class="position-absolute top-0 w-100 h-100" style="background: #0d6dfd5d;"></div>
                 @yield('auth-img')
@@ -45,6 +62,15 @@
 
         </div>
     </div>
+    <script>
+        // Show loader on page load
+        $(document).ready(function() {
+            // Hide loader when page is fully loaded
+            $(window).on('load', function() {
+                $('#loader').fadeOut('slow');
+            });
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     @yield('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

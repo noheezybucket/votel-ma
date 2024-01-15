@@ -36,16 +36,43 @@
             gap: 10px;
             align-items: center;
         }
+
+        .overlay {
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #212529;
+            /* semi-transparent white overlay */
+            z-index: 9999;
+        }
     </style>
 
 </head>
 
 <body>
+    <div id="loader" class="overlay">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+    </div>
     <main>
         @yield('content')
     </main>
 
 
+    <script>
+        // Show loader on page load
+        $(document).ready(function() {
+            // Hide loader when page is fully loaded
+            $(window).on('load', function() {
+                $('#loader').fadeOut('slow');
+            });
+        });
+    </script>
     {{-- charts --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
     {{-- jquery --}}
@@ -55,7 +82,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
-
 </body>
 
 </html>

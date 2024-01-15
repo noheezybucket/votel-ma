@@ -9,8 +9,9 @@
 @section('content')
     <div class="p-2">
 
-        <div class="mb-2 d-flex align-items-center bg-light rounded-3 p-3 justify-content-between container-sm mx-auto p-0">
-            <h2>Nouveau secteur</h2>
+        <div
+            class="mb-2 d-flex align-items-center bg-light text-primary rounded-3 p-3 justify-content-between container-sm mx-auto p-0">
+            <h4>Nouveau secteur</h4>
             <a class="btn btn-danger" href="{{ route('admin.list-secteurs') }}">Retour</a>
         </div>
 

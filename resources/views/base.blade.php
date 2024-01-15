@@ -141,6 +141,20 @@
         #content {
             overflow-y: auto;
         }
+
+        .overlay {
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #212529;
+            /* semi-transparent white overlay */
+            z-index: 9999;
+        }
     </style>
 
     <script>
@@ -171,6 +185,11 @@
 </head>
 
 <body>
+    <div id="loader" class="overlay">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+    </div>
+
     <main class="d-flex">
         <nav class="vh-100 position-sticky sticky-top">
             @yield('sidebar')
@@ -181,7 +200,15 @@
             </div>
         </div>
     </main>
-
+    <script>
+        // Show loader on page load
+        $(document).ready(function() {
+            // Hide loader when page is fully loaded
+            $(window).on('load', function() {
+                $('#loader').fadeOut('slow');
+            });
+        });
+    </script>
     <script>
         $("#username").html(username)
     </script>
