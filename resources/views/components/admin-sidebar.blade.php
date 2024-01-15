@@ -16,21 +16,26 @@
                 <span>Candidats</span> </a>
         </li>
         {{-- <li class="mb-1">
-                <button class="btn btn-toggle align-items-center rounded collapsed text-primary"
-                    data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-                    <x-fas-user-tie class="navicon" /> Candidat
-                </button>
-                <div class="collapse show" id="home-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li> <a class="nav-link navicon-item link-dark rounded" aria-current="page"
-                                href="{{ route('admin.list-candidate') }}">
-                                Liste des candidats</a></li>
-                        <li> <a class="nav-link navicon-item link-dark rounded" aria-current="page"
-                                href="{{ route('admin.create-candidate') }}">
-                                Ajouter un candidat</a></li>
-                    </ul>
-                </div>
-            </li> --}}
+            <button class="btn btn-toggle align-items-center rounded collapsed text-primary w-100"
+                data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                <x-fas-user-tie class="navicon" /> Candidat
+            </button>
+            <button
+                class="btn btn-toggle gap-1 d-flex justify-content-start align-items-center rounded collapsed text-white w-100"
+                data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                <x-fas-user-tie class="navicon" /> <span> Candidat</span>
+            </button>
+            <div class="collapse show" id="home-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li> <a class="nav-link navicon-item link-light rounded" aria-current="page"
+                            href="{{ route('admin.list-candidate') }}">
+                            Liste des candidats</a></li>
+                    <li> <a class="nav-link navicon-item link-light rounded" aria-current="page"
+                            href="{{ route('admin.create-candidate') }}">
+                            Ajouter un candidat</a></li>
+                </ul>
+            </div>
+        </li> --}}
 
         <li>
             <a class="nav-link navicon-item text-white" aria-current="page" href="{{ route('admin.list-secteurs') }}">

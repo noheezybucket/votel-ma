@@ -14,7 +14,7 @@ class AuthController extends Controller
     /**
      * Register user
      */
-    function register(Request $request)
+    public function register(Request $request)
     {
         try {
             $validated = Validator::make($request->all(), [
@@ -63,8 +63,6 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-            //code...
-
             $validated = Validator::make(request()->all(), [
                 'cni' => 'required|numeric',
                 'password' => 'required|string',
@@ -90,14 +88,13 @@ class AuthController extends Controller
                 'authorisation' => [
                     'token' => $token,
                     'type' => 'bearer',
-                ]
-            ]);
-        } catch (\Throwable $th) {
-            //throw $th;
+                ],
+            ], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 500);
         }
-    }
-
-    function forgotPassword()
-    {
     }
 }

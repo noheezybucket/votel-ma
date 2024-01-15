@@ -28,10 +28,9 @@ Route::prefix('auth')->name('auth.')->group(function () {
 });
 
 // admin routes
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     // dashboard
     Route::get('dashboard', [StatisticsController::class, 'index'])->name('dashboard');
-
     // candidates views
     Route::view('list-candidates', 'admin.candidate.list')->name('list-candidate');
     Route::view('create-candidate', 'admin.candidate.create')->name('create-candidate');
@@ -44,11 +43,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 
-Route::prefix('electeur')->name('electeur.')->group(function () {
+Route::prefix('electeur')->middleware('auth')->name('electeur.')->group(function () {
     Route::get('candidates', [ElecteurController::class, 'candidates_list'])->name('candidates');
     Route::get('candidates/{id}', [ElecteurController::class, 'view_candidate'])->name('view-candidate');
     Route::get('programs', [ElecteurController::class, 'programs_list'])->name('programs');
     Route::get('programs/{id}', [ElecteurController::class, 'view_program'])->name('view-program');
-
     Route::get('statistics', [StatisticsController::class, 'index'])->name('stats');
 });

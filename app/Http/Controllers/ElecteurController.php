@@ -17,7 +17,13 @@ class ElecteurController extends Controller
     {
         $candidate = Candidat::with('programmes')->find($id);
 
-        return view('electeur/view-candidate', ['candidat' => $candidate]);
+        $programmes = [];
+
+        foreach ($candidate->programmes as $programme) {
+            $programmes[] = ["secteur" => $programme->secteur()->get(), "programme" => $programme];
+        }
+
+        return view('electeur/view-candidate', ['candidat' => $candidate, 'programmes' => $programmes]);
     }
 
     function programs_list()

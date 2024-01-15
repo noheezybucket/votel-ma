@@ -6,7 +6,7 @@
 @endsection
 
 @section('auth-form')
-    <form id="register-form" class="shadow-lg border rounded p-3 " style="max-width: 500px; width:100%">
+    <form id="register-form" class="shadow-sm border rounded p-3 " style="max-width: 500px; width:100%">
         <div
             class="d-flex justify-content-center align-items-center text-2xl mb-2  rounded p-2 bg-primary text-light fw-bold">
             <x-far-circle-user style="width: 30px; margin-right:5px" />
@@ -22,7 +22,7 @@
             <input type="text" id="fullname" name="fullname" class="form-control">
         </div>
         <div class=" mb-2">
-            <label for="cni" class="form-label">N° Carte Nationale d'Identité (CNI)</label>
+            <label for="cni" class="form-label">Numéro CNI</label>
             <input type="text" id="cni" name="cni" class="form-control">
         </div>
         <div class=" mb-2">
@@ -39,7 +39,7 @@
         </div>
 
         <div>
-            <p class="mt-2">Vous avez déjà un compte? <br>
+            <p class="mt-2">Vous avez déjà un compte?
                 <a href="{{ route('auth.login-form') }}">Connectez vous facilement ici</a>
             </p>
         </div>
