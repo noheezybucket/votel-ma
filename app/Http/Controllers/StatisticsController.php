@@ -7,15 +7,17 @@ use App\Models\Programme;
 use Illuminate\Http\Request;
 
 use App\Charts\CandidatesNumber;
-
+use App\Models\Like;
 
 class StatisticsController extends Controller
 {
     function index(Request $request)
     {
-        $candidats = Candidat::pluck('validate', 'partie');
+        $candidats = Candidat::pluck('id', 'partie');
 
         $programmes = Programme::pluck('candidat_id', 'titre');
+
+        $likes = Like::pluck('like', 'program_id');
 
         // return $candidats;
 

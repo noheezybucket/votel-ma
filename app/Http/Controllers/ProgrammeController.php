@@ -17,7 +17,8 @@ class ProgrammeController extends Controller
         try {
             $programs = Programme::all();
             $programs_candidates = [];
-            $programs_secteurs = [];
+            $secteurs = Secteur::all();
+
 
             foreach ($programs as $program) {
                 $programs_candidates[] = [
@@ -30,6 +31,7 @@ class ProgrammeController extends Controller
             return response()->json([
                 'status' => 'success',
                 'programs' => $programs_candidates,
+                'secteurs' => $secteurs
             ]);
         } catch (\Throwable $e) {
             return response()->json([

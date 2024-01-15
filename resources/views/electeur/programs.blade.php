@@ -17,19 +17,16 @@
             @foreach ($programs as $program)
                 <div class="card mb-3" style="">
                     <div class="row no-gutters">
-                        <div class="col-md-8">
+                        <div class="">
                             <div class="card-body">
+                                <img src="{{ asset('/uploads/images/' . $program->candidat->photo) }}" alt=""
+                                    width="50px" height="200px" class="card-img object-fit-cover mb-2">
                                 <h5 class="card-title">{{ $program->titre }}</h5>
+                                <h6 class="card-text">{{ $program->candidat->nom }} {{ $program->candidat->prenom }}</h6>
                                 <p class="card-text text-justify">{{ substr($program->contenu, 0, 300) }}...</p>
                                 <a href="{{ asset('/upload/documents/' . $program->document) }}"></a>
                                 <div>
-                                    <a class="btn btn-primary "
-                                        href="{{ asset('/uploads/documents/' . $program->document) }}">J'aime
-                                        <x-far-thumbs-up style="width:20px" /></a>
-                                    <a class="btn btn-danger "
-                                        href="{{ asset('/uploads/documents/' . $program->document) }}">Je
-                                        n'aime pas
-                                        <x-far-thumbs-down style="width:20px" /></a>
+
                                     <a href="{{ route('electeur.view-program', ['id' => $program->id]) }}"
                                         class="btn btn-primary">Détails</a>
                                 </div>

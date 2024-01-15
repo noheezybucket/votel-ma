@@ -17,7 +17,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'logout']]);
     }
 
     /**
@@ -86,7 +86,7 @@ class AuthController extends Controller
             if (!$token) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Unauthorized',
+                    'message' => 'Vérifier vos saisies ou créer un compte',
                 ], 401);
             }
 

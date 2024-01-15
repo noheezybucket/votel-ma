@@ -29,6 +29,8 @@
                     <option value="2">Sport</option>
                     <option value="3">Education</option>
                     <option value="4">Agriculture</option>
+                    <option value="5">Pêche</option>
+                    <option value="6">Elevage</option>
                 </select>
             </div>
 
@@ -40,6 +42,8 @@
                     <option value="2">warning</option>
                     <option value="3">info</option>
                     <option value="4">danger</option>
+                    <option value="5">secondary</option>
+                    <option value="6">success</option>
                 </select>
             </div>
 

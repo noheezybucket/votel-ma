@@ -9,7 +9,7 @@ class Programme extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titre', 'contenu', 'document', 'candidat_id'];
+    protected $fillable = ['titre', 'contenu', 'document', 'candidat_id', 'secteur_id'];
 
     public function candidat()
     {
