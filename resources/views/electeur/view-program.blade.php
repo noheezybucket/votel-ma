@@ -43,3 +43,4 @@
     </div>
 
 @endsection
+@include('../scripts/electeur')

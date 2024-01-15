@@ -48,21 +48,23 @@
         </li>
 
     </ul>
+    <button class="btn btn-light" id="logout"><x-fas-plug-circle-xmark style="width:18px" /> Se
+        déconnecter</button>
     <hr class="text-white">
     <div class="dropdown">
-        <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle h-100"
+        <a href="#"
+            class="d-flex align-items-center justify-content-center link-light text-decoration-none dropdown-toggle h-100"
             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
             <x-fas-circle-user class="text-light" style="width: 22px; margin-right:10px" />
 
-            <strong id="username">Administrateur</strong>
+            <strong>Administrateur</strong>
         </a>
         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
             <li><a class="dropdown-item" href="#"><x-fas-gear style="width:15px" /> Paramètres</a></li>
-            <li>
+            {{-- <li>
                 <hr class="dropdown-divider">
-            </li>
-            <li><button class="dropdown-item" id="logout"><x-fas-plug-circle-xmark style="width:18px" /> Se
-                    déconnecter</button></li>
+            </li> --}}
+
         </ul>
     </div>
 </div>

@@ -2,7 +2,7 @@
      <div class="container-fluid">
          <a class="navbar-brand text-xl  rounded p-2 bg-light text-primary fw-bold" href="/">
              <x-far-envelope style="width: 30px; margin-left:5px" />
-             <span>ParrainApp</span>
+             <span>Votél Ma</span>
          </a>
          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,20 +10,6 @@
          </button>
          <div class="collapse navbar-collapse" id="navbarNav">
              <ul class="navbar-nav">
-
-
-                 <li class="nav-item">
-                     <a class="nav-link active" aria-current="page"
-                         href="{{ route('electeur.stats') }}">Statistiques</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link active" aria-current="page"
-                         href="{{ route('electeur.candidates') }}">Candidats</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link active" aria-current="page"
-                         href="{{ route('electeur.programs') }}">Programmes</a>
-                 </li>
 
              </ul>
          </div>

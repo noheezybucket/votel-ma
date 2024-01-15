@@ -25,3 +25,4 @@
         @endforeach
     </div>
 @endsection
+@include('../scripts/electeur')

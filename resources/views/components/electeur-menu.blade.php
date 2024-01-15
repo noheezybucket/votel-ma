@@ -50,7 +50,7 @@
     <div class="container-fluid">
         <a class="navbar-brand text-xl  rounded p-2 bg-light text-primary fw-bold" href="/">
             <x-far-envelope style="width: 30px; margin-left:5px" />
-            <span>ParrainApp</span>
+            <span>Votél Ma</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,12 +76,12 @@
                 </div>
 
                 <div class="dropdown">
-                    <a href="#"
+                    {{-- <a href="#"
                         class="d-flex align-items-center link-light text-decoration-none dropdown-toggle h-100"
                         id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                         <x-fas-circle-user class="text-light" style="width: 22px; margin-right:10px" />
 
-                        <strong>Mouhamad GUEYE</strong>
+                        <strong id="username">Mouhamad GUEYE</strong>
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                         <li><a class="dropdown-item" href="#"><x-fas-gear style="width:15px" /> Paramètres</a>
@@ -89,9 +89,11 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#"><x-fas-plug-circle-xmark style="width:18px" /> Se
-                                déconnecter</a></li>
-                    </ul>
+                        <li></li>
+                    </ul> --}}
+                    <button class="btn btn-outline-light" id="logout"><x-fas-plug-circle-xmark style="width:18px" />
+                        Se
+                        déconnecter</button>
                 </div>
             </ul>
         </div>

@@ -82,6 +82,7 @@
                 document.cookie = "jwt-token=" + response.authorization.token + "; path=/"
                 document.cookie = "user-role=" + response.user.role + "; path=/"
                 document.cookie = "user-id=" + response.user.id + "; path=/"
+                document.cookie = "username=" + response.user.fullname + "; path=/"
 
 
                 $('#login-btn').prop('disabled', false)
@@ -117,9 +118,6 @@
 
                 console.log(error)
             })
-        }
-        const logout = () => {
-
         }
     </script>
     <script>

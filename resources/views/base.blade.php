@@ -150,6 +150,7 @@
         let user_role = false
 
 
+
         for (let i = 0; i < cookies.length; i++) {
             if (cookies[i].includes('jwt-token'))
                 jwt_cookie = cookies[i]
@@ -161,6 +162,10 @@
 
         if (!jwt_cookie)
             document.location = "{{ route('auth.login-form') }}"
+
+        const token = jwt_cookie.substring(10)
+        const id_user = user_id.substring(8)
+        const role_user = user_role.substring(10)
     </script>
 
 </head>
@@ -177,6 +182,9 @@
         </div>
     </main>
 
+    <script>
+        $("#username").html(username)
+    </script>
     {{-- charts --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
     {{-- jquery --}}
@@ -188,6 +196,37 @@
     </script>
     {{-- bootstrap table --}}
     <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
+
+    {{-- logout --}}
+    <script>
+        const logout = () => {
+            $("#logout").prop("disabled", true);
+            $("#logout").html('Déconnexion <div class="spinner-border spinner-border-sm" role="status"></div>')
+
+            $.ajax({
+                url: "{{ route('auth.logout') }}",
+                method: "POST",
+                timeout: 5000,
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+            }).then((response) => {
+
+                console.log(response)
+                document.cookie = "jwt-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+                document.cookie = "user-role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+                document.cookie = "user-id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+                window.location = "{{ route('welcome-guest') }}";
+            }).catch(error => {
+                $("#logout").prop("disabled", false);
+                $("#logout").html(
+                    '<x-fas-plug-circle-xmark style="width:18px" /> Se déconnecter')
+                console.log(error)
+            })
+        }
+
+        $("#logout").click(logout)
+    </script>
 
 </body>
 

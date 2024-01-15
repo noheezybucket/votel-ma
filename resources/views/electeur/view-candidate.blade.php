@@ -23,7 +23,7 @@
                 </div>
 
                 <hr>
-                <div class="d-flex align-items-center gap-3 border rounded-3">
+                <div class="d-flex align-items-center gap-3 rounded-3">
                     <img src="{{ asset('/uploads/images/' . $candidat->photo) }}" class="rounded-circle object-fit-cover"
                         height="150px" width="150px" alt="...">
                     <div>
@@ -63,3 +63,4 @@
     </div>
 
 @endsection
+@include('../scripts/electeur')

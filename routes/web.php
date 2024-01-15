@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('guest.welcome');
+})->name('welcome-guest');
 
 // auth
 Route::prefix('auth')->name('auth.')->group(function () {
