@@ -31,20 +31,16 @@
         <div class="mb-3">
             </p>
 
-            <span class="btn btn-outline-primary like-button" title="likes" id="saveLikeDislike" data-type="like"
-                data-program="{{ $programme->id }}">
-                @if ($likes !== 0)
-                    {{ $likes }}
-                @endif
+            <span class="{{ $likes ? 'btn btn-primary' : 'btn btn-outline-primary' }}" title="likes" id="like-button"
+                data-type="like" data-program="{{ $programme->id }}">
+                <span id="likes"></span>
 
                 J'aime
                 <x-far-thumbs-up style="width:20px" />
             </span>
-            <span class="btn btn-outline-danger dislike-button" title="dislikes" id="saveLikeDislike" data-type="dislike"
-                data-program="{{ $programme->id }}">
-                @if ($dislikes !== 0)
-                    {{ $dislikes }}
-                @endif
+            <span class="{{ $dislikes ? 'btn btn-danger' : 'btn btn-outline-danger' }}" title="dislikes" id="dislike-button"
+                data-type="dislike" data-program="{{ $programme->id }}">
+                <span id="dislikes"></span>
 
                 Je n'aime pas
                 <x-far-thumbs-down style="width:20px" />

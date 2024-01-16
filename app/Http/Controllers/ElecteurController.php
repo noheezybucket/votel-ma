@@ -42,53 +42,81 @@ class ElecteurController extends Controller
     }
 
 
-    function likeDislike(Request $request)
+    function like(Request $request)
     {
-        $programId = $request->program;
+        $programId = $request->program_id;
         $user_id = $request->user_id;
 
-        $program = Programme::with('likes')->find($programId);
-        $likes = $program->likes_count();
-        $dislikes = $program->dislikes_count();
+        $like = Like::where('user_id', $user_id)->where('program_id', $programId)->where('like', 1)->first();
+        $dislike = Like::where('user_id', $user_id)->where('program_id', $programId)->where('dislike', 1)->first();
 
-
-        $user = User::find($user_id);
-
-        // Check if the user has already liked or disliked the program
-        if ($request->type === 'like') {
-            $data = new Like;
-            $data->program_id = $programId;
-            $data->like = 1;
-            $data->save();
+        if ($dislike) {
+            Like::destroy($dislike->id);
+            $like = new Like(['program_id' => $programId, 'user_id' => $user_id, 'like' => 1, 'dislike' => 0]);
+            $like->save();
 
             return response()->json([
-                'status' => 'Liked successfully',
-                'likes' => $likes,
-                'dislikes' => $dislikes,
-            ]);
-        } elseif ($request->type === 'dislike') {
-            $data = new Like;
-            $data->program_id = $programId;
-            $data->dislike = 1;
-            $data->save();
+                'liked' =>  true,
+                'likes' => Like::where('program_id', $programId)->where('like', 1)->get()
+            ], 201);
+        } else if ($like) {
+            Like::destroy($like->id);
+
             return response()->json([
-                'status' => 'Disliked successfully',
-                'likes' => $likes,
-                'dislikes' => $dislikes,
+                'liked' =>  false,
+                'likes' => Like::where('program_id', $programId)->where('like', 1)->get()
             ]);
+        } else {
+            $like = new Like(['program_id' => $programId, 'user_id' => $user_id, 'like' => 1, 'dislike' => 0]);
+            $like->save();
+
+            return response()->json([
+                'liked' =>  true,
+                'likes' => Like::where('program_id', $programId)->where('like', 1)->get()
+            ], 201);
         }
+    }
 
-        return response()->json([
-            'message' => 'Vous avez déjà effectuer cet action'
-        ]);
+
+    function dislike(Request $request)
+    {
+        $programId = $request->program_id;
+        $user_id = $request->user_id;
+
+        $dislike = Like::where('user_id', $user_id)->where('program_id', $programId)->where('dislike', 1)->first();
+        $like = Like::where('user_id', $user_id)->where('program_id', $programId)->where('like', 1)->first();
+
+        if ($like) {
+            Like::destroy($like->id);
+            $dislike = new Like(['program_id' => $programId, 'user_id' => $user_id, 'like' => 0, 'dislike' => 1]);
+            $dislike->save();
+
+            return response()->json([
+                'disliked' =>  true,
+                'dislikes' => Like::where('program_id', $programId)->where('dislike', 1)->get()
+            ], 201);
+        } elseif ($dislike) {
+            Like::destroy($dislike->id);
+
+            return response()->json([
+                'disliked' =>  false,
+                'dislikes' => Like::where('program_id', $programId)->where('dislike', 1)->get()
+            ]);
+        } else {
+            $dislike = new Like(['program_id' => $programId, 'user_id' => $user_id, 'like' => 0, 'dislike' => 1]);
+            $dislike->save();
+
+            return response()->json([
+                'disliked' =>  true,
+                'dislikes' => Like::where('program_id', $programId)->where('dislike', 1)->get()
+            ], 201);
+        }
     }
 
 
     function stats()
     {
         $candidats = Candidat::all();
-
-        dd($candidats);
 
         return view('/electeur/stats', compact('candidat'));
     }

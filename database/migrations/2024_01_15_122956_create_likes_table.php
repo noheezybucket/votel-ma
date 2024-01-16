@@ -17,8 +17,6 @@ return new class extends Migration
             $table->integer('like')->default(0);
             $table->integer('dislike')->default(0);
             $table->timestamps();
-
-            // $table->unique(['user_id', 'program_id']); //user can like/dislike only once
         });
     }
 

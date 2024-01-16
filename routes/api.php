@@ -41,7 +41,9 @@ Route::prefix('program')->name('program.')->group(function () {
     Route::post('create', [ProgrammeController::class, 'create'])->name('create');
     Route::put('update/{id}', [ProgrammeController::class, 'update'])->name('update');
     Route::delete('delete/{id}', [ProgrammeController::class, 'delete'])->name('delete');
-    Route::post('/like-dislike', [ElecteurController::class, 'likeDislike'])->name('likeDislike');
+
+    Route::post('/like', [ElecteurController::class, 'like'])->name('like');
+    Route::post('/dislike', [ElecteurController::class, 'dislike'])->name('dislike');
 });
 
 Route::prefix('secteur')->name('secteur.')->group(function () {
